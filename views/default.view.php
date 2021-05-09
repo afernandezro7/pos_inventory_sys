@@ -62,14 +62,36 @@
     =============================================*/
     include "views/modules/sidebar.module.php";
 
-    /*=============================================
-    =                  CONTENT                    =
-    =============================================*/
-    include "views/modules/content.module.php";
 
     /*=============================================
     =                  CONTENT                    =
     =============================================*/
+    if(isset($_GET["ruta"])){
+
+      if($_GET["ruta"] == "inicio" ||
+         $_GET["ruta"] == "usuarios" ||
+         $_GET["ruta"] == "categorias" ||
+         $_GET["ruta"] == "productos" ||
+         $_GET["ruta"] == "clientes" ||
+         $_GET["ruta"] == "ventas" ||
+         $_GET["ruta"] == "crear-venta" ||
+         $_GET["ruta"] == "reportes" ||
+         $_GET["ruta"] == "salir"){
+
+        include "views/modules/".$_GET["ruta"].".module.php";
+
+      }else{
+
+        include "views/modules/404.module.php";
+
+      }
+
+    }else{
+
+      include "views/modules/inicio.module.php";
+
+    }
+
     include "views/modules/footer.module.php";
 
 
