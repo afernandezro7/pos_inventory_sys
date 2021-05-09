@@ -1,19 +1,19 @@
 <?php
+require_once "views/default.view.php";
 
 
+//require_once "controllers/default.controller.php";
+// require_once "controllers/users.controller.php";
+// require_once "controllers/categories.controller.php";
+// require_once "controllers/products.controller.php";
+// require_once "controllers/clients.controller.php";
+// require_once "controllers/sells.controller.php";
 
-//require_once "controllers/plantilla.controlador.php";
-// require_once "controllers/usuarios.controlador.php";
-// require_once "controllers/categorias.controlador.php";
-// require_once "controllers/productos.controlador.php";
-// require_once "controllers/clientes.controlador.php";
-// require_once "controllers/ventas.controlador.php";
+// require_once "models/users.model.php";
+// require_once "models/categories.model.php";
+// require_once "models/products.model.php";
+// require_once "models/clients.model.php";
+// require_once "models/sells.model.php";
 
-// require_once "models/usuarios.modelo.php";
-// require_once "models/categorias.modelo.php";
-// require_once "models/productos.modelo.php";
-// require_once "models/clientes.modelo.php";
-// require_once "models/ventas.modelo.php";
-
-//$plantilla = new ControladorPlantilla();
+//$plantilla = new controllerPlantilla();
 //$plantilla -> ctrPlantilla();
