@@ -1,8 +1,6 @@
 <?php
-require_once "views/default.view.php";
 
-
-//require_once "controllers/default.controller.php";
+require_once "controllers/default.controller.php";
 // require_once "controllers/users.controller.php";
 // require_once "controllers/categories.controller.php";
 // require_once "controllers/products.controller.php";
@@ -15,5 +13,5 @@ require_once "views/default.view.php";
 // require_once "models/clients.model.php";
 // require_once "models/sells.model.php";
 
-//$plantilla = new controllerPlantilla();
-//$plantilla -> ctrPlantilla();
+$template = new DefaultController();
+$template -> renderTemplate();
