@@ -51,7 +51,9 @@
 
   <?php
 
-    include "views/modules/header.module.php"
+    include "views/modules/header.module.php";
+
+    include "views/modules/sidebar.module.php";
 
 
   ?>
