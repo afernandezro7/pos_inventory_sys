@@ -40,12 +40,12 @@
     <!-- AdminLTE App -->
     <script src="views/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="views/dist/js/demo.js"></script>
+    <!-- <script src="views/dist/js/demo.js"></script> -->
     
   <!-- ============  End of scripts  ============= -->
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-blue sidebar-collapse sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
 
