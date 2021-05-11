@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,9 @@
 
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
- 
+  
+  <link rel="icon" href="views/img/template/icono-negro.png">
+
  <!-- =============================================
  =                   CSS                   =
  ============================================= -->
@@ -45,39 +48,65 @@
   <!-- ============  End of scripts  ============= -->
 </head>
 
-<body class="hold-transition skin-blue sidebar-collapse sidebar-mini">
-<!-- Site wrapper -->
-<div class="wrapper">
-
+<body class="hold-transition skin-blue sidebar-collapse sidebar-mini <?= isset($_SESSION["logged"]) && $_SESSION["logged"]=="ok" ? "":"login-page"?>">
+  
+  
   <?php
+    if(isset($_SESSION["logged"]) && $_SESSION["logged"]== "ok"){
 
-    /*=============================================
-    =                   HEADER                    =
-    =============================================*/
-    include "views/modules/header.module.php";
+      // <!-- Site wrapper -->
+      echo "<div class='wrapper'>";
 
-
-    /*=============================================
-    =                   SIDEBAR                   =
-    =============================================*/
-    include "views/modules/sidebar.module.php";
-
-    /*=============================================
-    =                  CONTENT                    =
-    =============================================*/
-    include "views/modules/content.module.php";
-
-    /*=============================================
-    =                  CONTENT                    =
-    =============================================*/
-    include "views/modules/footer.module.php";
-
+      /*=============================================
+      =                   HEADER                    =
+      =============================================*/
+      include "views/modules/header.module.php";
+  
+  
+      /*=============================================
+      =                   SIDEBAR                   =
+      =============================================*/
+      include "views/modules/sidebar.module.php";
+  
+  
+      /*=============================================
+      =                  CONTENT                    =
+      =============================================*/
+      if(isset($_GET["ruta"])){
+  
+        if($_GET["ruta"] == "inicio" ||
+           $_GET["ruta"] == "usuarios" ||
+           $_GET["ruta"] == "categorias" ||
+           $_GET["ruta"] == "productos" ||
+           $_GET["ruta"] == "clientes" ||
+           $_GET["ruta"] == "ventas" ||
+           $_GET["ruta"] == "crear-venta" ||
+           $_GET["ruta"] == "reportes" ||
+           $_GET["ruta"] == "salir"){
+  
+          include "views/modules/".$_GET["ruta"].".module.php";
+  
+        }else{
+  
+          include "views/modules/404.module.php";
+  
+        }
+  
+      }else{
+  
+        include "views/modules/inicio.module.php";
+  
+      }
+  
+      include "views/modules/footer.module.php";
+  
+      echo "</div>";
+      // <!-- ./wrapper -->
+    }else {
+      include "views/modules/login.module.php";
+    }
 
   ?>
-
-
-</div>
-<!-- ./wrapper -->
 
 <script src="views/js/custom.js"></script>
 </body>
