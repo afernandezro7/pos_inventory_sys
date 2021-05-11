@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,7 +52,7 @@
   
   
   <?php
-    if(isset($_SESSION["logged"]) && $_SESSION["logged"]=="ok"){
+    if(isset($_SESSION["logged"]) && $_SESSION["logged"]== "ok"){
 
       // <!-- Site wrapper -->
       echo "<div class='wrapper'>";
