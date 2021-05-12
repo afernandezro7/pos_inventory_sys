@@ -152,5 +152,14 @@ class UsersController{
 	}
 	
 
+	/**
+	*
+	* USERS LIST
+	*
+	*/
+	static public function ctrUsersList(){
+		$users = User::findAll();
+		return $users;
+	}
 
 }

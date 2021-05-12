@@ -74,5 +74,17 @@ class User{
         }
     }
 
+    /**
+    *
+    * User List
+    *
+    */
+    static public function findAll(String $table="users"){
+        $sql = "SELECT * FROM $table ORDER BY 'createdAt' DESC";
+        $stmt = Connection::connect()->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
 
 }
