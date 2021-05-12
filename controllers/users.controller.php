@@ -7,7 +7,7 @@ class UsersController{
 	* LOGIN
 	*
 	*/
-	public function ctrLoginUser(){
+	static public function ctrLoginUser(){
 		if(isset($_POST['userName'])){
 
 			if(preg_match('/^[a-zA-Z0-9]+$/', $_POST['userName']) && 
@@ -29,7 +29,20 @@ class UsersController{
 			}
 		}
 
-	}	
+	}
+	
+
+	/**
+	*
+	* CREATE NEW USER
+	*
+	*/
+	static public function ctrAddUser(){
+		if(isset($_POST['userName'])){
+
+		}
+	}
+	
 
 
 }

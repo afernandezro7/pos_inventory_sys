@@ -153,6 +153,10 @@
                     <button type="button" type="submit" class="btn btn-primary">Guardar Usuario</button>
                 </div>
 
+                <?php
+                    UsersController::ctrAddUser();
+                ?>
+
             </form>
 
         </div>

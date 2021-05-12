@@ -13,5 +13,4 @@ require_once "models/product.model.php";
 require_once "models/sell.model.php";
 require_once "models/user.model.php";
 
-$template = new DefaultController();
-$template -> renderTemplate();
+DefaultController:: renderTemplate();

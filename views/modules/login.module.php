@@ -30,8 +30,7 @@
             </div>
 
             <?php
-                $login = new UsersController();
-                $login -> ctrLoginUser();
+                UsersController::ctrLoginUser();
             ?>
 
         </form>
