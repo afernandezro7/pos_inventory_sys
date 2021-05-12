@@ -20,8 +20,20 @@ class UsersController{
 
 				$response = User::find($table, $userName, $item);
 
-				if($response["userName"] == $userName && $response["password"]== $password){
+				if($response["userName"] == $userName && 
+				   $response["password"] == $password &&
+				   $response["status"] == 1)
+				{
 					$_SESSION["logged"] = "ok";
+					$_SESSION["user"] = array(
+						'name' => $response["name"],
+						'userName' => $response["userName"],
+						'role' => $response["role"],
+						'avatar' => $response["avatar"],
+						'status' => $response["status"],
+						'lastLogin' => $response["lastLogin"],
+						'createdAt' => $response["createdAt"]
+					);
 					echo "<script>window.location='inicio'</script>";
 				} else {
 					echo "<br><div class='alert alert-danger'>Usuario y/o contraseña no válido</div>";
