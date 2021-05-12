@@ -1,5 +1,7 @@
 <?php
 
+
+require_once "helpers/helpers.php";
 require_once "controllers/categories.controller.php";
 require_once "controllers/clients.controller.php";
 require_once "controllers/default.controller.php";
