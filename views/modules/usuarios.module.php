@@ -25,11 +25,11 @@
             </div>
 
             <div class="box-body">
-                <table class="table table-bordered table-striped">
+                <table class="table table-bordered table-striped dt-responsive customTables">
                     <thead>
                         <tr>
-                            <th>#</th>
-                            <th>foto</th>
+                            <th class="table-width_sm">#</th>
+                            <th class="table-width_sm">foto</th>
                             <th>Nombre</th>
                             <th>Usuario</th>
                             <th>Role</th>
