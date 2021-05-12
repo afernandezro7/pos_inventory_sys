@@ -39,7 +39,42 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <?php
+                            $users = UsersController::ctrUsersList();
+                        ?>
+                        <?php foreach ($users as $user) : ?>
+                            <tr>
+                                <td><?=$user['id']?></td>
+                                <th>
+                                    <?php if (!empty($user['avatar'])) : ?>
+                                        <img class="img-responsive" width="40px" src="<?=$user['avatar']?>">
+                                    <?php else: ?>
+                                        <img class="img-responsive" width="40px" src="views/img/users/default/anonymous.png">
+                                    <?php endif; ?>
+                                </th>
+                                <td><?=$user['name']?></td>
+                                <td><?=$user['userName']?></td>
+                                <td><?=$user['role']?></td>
+                                <td>
+                                    <?php if ($user['status']==1) : ?>
+                                        <button class="btn btn-success btn-xs">Activado</button>
+                                    <?php elseif($user['status']==0): ?>
+                                        <button class="btn btn-danger btn-xs">Desactivado</button>
+                                    <?php endif; ?>
+                                </td>
+                                <td><?=Helpers::LongTimeFilter($user['lastLogin'])?></td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+                                        <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        
+                        <?php endforeach; ?>
+                        
+
+                        <!-- <tr>
                             <td>1</td>
                             <th>
                                 <img class="img-responsive" width="40px" src="views/dist/img/avatar.png">
@@ -72,7 +107,7 @@
                                     <button class="btn btn-danger "><i class="fa fa-trash"></i></button>
                                 </div>
                             </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
 
                 </table>
@@ -98,7 +133,7 @@
                     </button>
                     <h4 class="modal-title">Agregar Usuario</h4>
                 </div>
-    
+
                 <div class="modal-body">
                     <div class="box-body">
                         <!-- name input  -->
@@ -128,9 +163,9 @@
                                 <span class="input-group-addon"><i class="fa fa-users"></i></span>
                                 <select class="form-control " name="role">
                                     <option value="" disabled>Seleccionar Role</option>
-                                    <option value="ROLE_VENDOR">Vendedor</option>
-                                    <option value="ROLE_MANAGER">Gestor</option>
-                                    <option value="ROLE_ADMIN">Administrador</option>
+                                    <option value="Vendedor">Vendedor</option>
+                                    <option value="Gestor">Gestor</option>
+                                    <option value="Administrador">Administrador</option>
                                 </select>
                             </div>
                         </div>
@@ -138,23 +173,23 @@
                         <div class="form-group">
                             <div class="panel">SUBIR FOTO</div>
                             <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-fw fa-file-image-o"></i></span>
+                                <span class="input-group-addon"><i class="fa fa-fw fa-file-image-o"></i></span>
                                 <input class="form-control newAvatar" type="file" name="avatar">
                             </div>
-                           
+
                             <p class="help-block">Peso máximo 2 Mb</p>
                             <img class="img-thumbnail preview_image" width="100px" src="views/img/users/default/anonymous.png" alt="logo">
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
                     <button type="submit" class="btn btn-primary">Guardar Usuario</button>
                 </div>
 
                 <?php
-                    UsersController::ctrAddUser();
+                UsersController::ctrAddUser();
                 ?>
 
             </form>
