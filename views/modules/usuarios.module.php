@@ -90,7 +90,7 @@
     <div class="modal-dialog">
 
         <div class="modal-content">
-            <form role="form" method="post" enctype="multipart/form-data">
+            <form role="form" method="POST" enctype="multipart/form-data">
 
                 <div class="modal-header" style="background:#3c8dbc; color:white">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -150,7 +150,7 @@
     
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
-                    <button type="button" type="submit" class="btn btn-primary">Guardar Usuario</button>
+                    <button type="submit" class="btn btn-primary">Guardar Usuario</button>
                 </div>
 
                 <?php
