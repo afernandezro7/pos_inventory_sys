@@ -67,6 +67,18 @@
   <?php
     if(isset($_SESSION["logged"]) && $_SESSION["logged"]== "ok"){
 
+
+    if (isset($_SESSION['user'])) {
+      $name = $_SESSION['user']["name"];
+      $userName = $_SESSION['user']["userName"];
+      $avatar = $_SESSION['user']["avatar"];
+    } else {
+      $name = 'Anonymous';
+      $userName = 'Anonymous';
+      $avatar = 'views/img/users/default/anonymous.png';
+    };            
+
+
       // <!-- Site wrapper -->
       echo "<div class='wrapper'>";
 

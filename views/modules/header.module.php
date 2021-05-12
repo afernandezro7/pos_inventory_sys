@@ -37,12 +37,11 @@
 
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
-
                 <!-- User Account -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="views/img/users/default/anonymous.png" class="user-image" alt="User Image">
-                        <span class="hidden-xs">Alexander Pierce</span>
+                        <img src="<?=$avatar?>" class="user-image" alt="User Image">
+                        <span class="hidden-xs"><?=$name?></span>
                     </a> 
 
                     <!-- Dropdown-toggle -->
