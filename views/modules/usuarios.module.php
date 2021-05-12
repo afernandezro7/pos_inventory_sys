@@ -139,11 +139,11 @@
                             <div class="panel">SUBIR FOTO</div>
                             <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-fw fa-file-image-o"></i></span>
-                                <input class="form-control " type="file" id="newAvatar" name="avatar">
+                                <input class="form-control newAvatar" type="file" name="avatar">
                             </div>
                            
-                            <p class="help-block">Peso máximo 200 Mb</p>
-                            <img class="img-thumbnail" width="100px" src="views/img/users/default/anonymous.png" alt="logo">
+                            <p class="help-block">Peso máximo 2 Mb</p>
+                            <img class="img-thumbnail preview_image" width="100px" src="views/img/users/default/anonymous.png" alt="logo">
                         </div>
                     </div>
                 </div>

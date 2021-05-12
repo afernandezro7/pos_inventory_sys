@@ -122,5 +122,6 @@
   ?>
 
 <script src="views/js/custom.js"></script>
+<script src="views/js/users.js"></script>
 </body>
 </html>
