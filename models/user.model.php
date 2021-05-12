@@ -35,12 +35,13 @@ class User{
                 'msg'=>'El usuario ya existe'
             );
         }else {
-            $sql = "INSERT INTO $table(name, userName, password, role ) VALUES (:name, :userName, :password, :role)";
+            $sql = "INSERT INTO $table(name, userName, password, role, avatar ) VALUES (:name, :userName, :password, :role, :avatar)";
             $stmt = Connection::connect()->prepare($sql);
             $stmt -> bindParam(':name', $data['name'], PDO::PARAM_STR);
             $stmt -> bindParam(':userName', $data['userName'], PDO::PARAM_STR);
             $stmt -> bindParam(':password', $data['password'], PDO::PARAM_STR);
             $stmt -> bindParam(':role', $data['role'], PDO::PARAM_STR);
+            $stmt -> bindParam(':avatar', $data['avatar'], PDO::PARAM_STR);
             $response = $stmt->execute();
 
             if($response){

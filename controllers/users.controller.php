@@ -52,11 +52,8 @@ class UsersController{
 				$userName = $_POST['userName'];
 				$role = $_POST['role'];
 				$password = $_POST['password'];
-				$avatar = null;
+				$avatar = "";
 
-				if(isset($_POST['avatar'])){
-
-				}
 
 				$data = array(
 					"name"=>$name,
@@ -65,6 +62,42 @@ class UsersController{
 					"password"=>$password,
 					"avatar"=>$avatar,
 				);
+
+				if(isset($_FILES['avatar']['tmp_name']) ){
+					$file = $_FILES['avatar'];
+
+					//cut image to 500x500
+					list($width,$height) = getimagesize($file['tmp_name']);
+					$newWidth = 500;
+					$newHeight = 500;
+
+					$path="";
+
+					if($file['type'] == "image/jpeg"){
+						$path = "views/img/users/".$userName.".jpg";
+
+						$origin = imagecreatefromjpeg($file['tmp_name']);
+						$destiny = imagecreatetruecolor($newWidth,$newHeight);
+
+						imagecopyresized($destiny, $origin, 0 , 0 , 0, 0, $newWidth, $newHeight, $width, $height );
+
+						imagejpeg($destiny, $path);
+					}
+
+					if($file['type'] == "image/png"){
+						$path = "views/img/users/".$userName.".png";
+
+						$origin = imagecreatefrompng($file['tmp_name']);
+						$destiny = imagecreatetruecolor($newWidth,$newHeight);
+
+						imagecopyresized($destiny, $origin, 0 , 0 , 0, 0, $newWidth, $newHeight, $width, $height );
+
+						imagepng($destiny, $path);
+					}
+
+					$data['avatar'] = $path;
+
+				}
 
 				$response = User::createUser($table, $data);
 				$type = $response['type'];
