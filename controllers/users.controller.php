@@ -20,8 +20,11 @@ class UsersController{
 
 				$response = User::find($table, $userName, $item);
 
+				//encrypt password			
+				$cryptPassword = User::cryptPassword($password);
+
 				if($response["userName"] == $userName && 
-				   $response["password"] == $password &&
+				   $response["password"] == $cryptPassword &&
 				   $response["status"] == 1)
 				{
 					$_SESSION["logged"] = "ok";
@@ -66,12 +69,14 @@ class UsersController{
 				$password = $_POST['password'];
 				$avatar = "";
 
+				//encrypt password			
+				$cryptPassword = User::cryptPassword($password);
 
 				$data = array(
 					"name"=>$name,
 					"userName"=>$userName,
 					"role"=>$role,
-					"password"=>$password,
+					"password"=>$cryptPassword,
 					"avatar"=>$avatar,
 				);
 

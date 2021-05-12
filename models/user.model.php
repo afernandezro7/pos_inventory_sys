@@ -18,6 +18,18 @@ class User{
         return $stmt->fetch();
     }
 
+    /**
+    *
+    * Encrypt user password
+    *
+    */
+    static public function cryptPassword(String $password){
+        $salt = '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$';
+		$cryptPassword = crypt($password,$salt);
+
+        return $cryptPassword;
+    }
+
 
     /**
     *
