@@ -71,7 +71,7 @@
     if (isset($_SESSION['user'])) {
       $name = $_SESSION['user']["name"];
       $userName = $_SESSION['user']["userName"];
-      $avatar = $_SESSION['user']["avatar"];
+      $avatar = (empty($_SESSION['user']["avatar"]) ? 'views/img/users/default/anonymous.png' : $_SESSION['user']["avatar"]);
     } else {
       $name = 'Anonymous';
       $userName = 'Anonymous';
