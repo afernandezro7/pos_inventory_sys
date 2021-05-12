@@ -56,6 +56,8 @@
     <script src="views/bower_components/datatables.net-bs/js/dataTables.responsive.min.js"></script>
     <script src="views/bower_components/datatables.net-bs/js/responsive.bootstrap.min.js"></script>
     
+    <!-- sweetalert2 -->
+    <script src="views/plugins/sweetalert2/sweetalert2.js"></script>
   <!-- ============  End of scripts  ============= -->
 </head>
 
