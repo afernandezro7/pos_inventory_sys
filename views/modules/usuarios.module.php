@@ -65,7 +65,14 @@
                                 <td><?=Helpers::LongTimeFilter($user['lastLogin'])?></td>
                                 <td>
                                     <div class="btn-group">
-                                        <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+                                        <button 
+                                            class="btn btn-warning btnEditUser" 
+                                            data-toggle="modal" 
+                                            data-target="#modalEditUser"
+                                            idUser="<?=$user['id']?>"
+                                        >
+                                            <i class="fa fa-pencil"></i>
+                                        </button>
                                         <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
                                     </div>
                                 </td>
@@ -73,41 +80,6 @@
                         
                         <?php endforeach; ?>
                         
-
-                        <!-- <tr>
-                            <td>1</td>
-                            <th>
-                                <img class="img-responsive" width="40px" src="views/dist/img/avatar.png">
-                            </th>
-                            <td>Ariel Sanchez</td>
-                            <td>Arielsg3</td>
-                            <td>Administrador</td>
-                            <td><button class="btn btn-success btn-xs">Activado</button></td>
-                            <td>Hace 2 días</td>
-                            <td>
-                                <div class="btn-group">
-                                    <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-                                    <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <th>
-                                <img class="img-responsive" width="40px" src="views/dist/img/avatar2.png">
-                            </th>
-                            <td>Ani Sanchez</td>
-                            <td>Anisg3</td>
-                            <td>ROLE_ADMIN</td>
-                            <td><button class="btn btn-danger btn-xs">Desactivado</button></td>
-                            <td>Hace 1 días</td>
-                            <td>
-                                <div class="btn-group">
-                                    <button class="btn btn-warning "><i class="fa fa-pencil"></i></button>
-                                    <button class="btn btn-danger "><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr> -->
                     </tbody>
 
                 </table>
@@ -119,7 +91,7 @@
 </div>
 
 <!-- =============================================
-=                   MODAL                   =
+=               MODAL CREATE USER                =
 ============================================= -->
 <div class="modal fade" id="modalAddUser" role="dialog">
     <div class="modal-dialog">
@@ -199,4 +171,84 @@
 </div>
 
 
+<!-- =============================================
+=               MODAL EDIT USER                =
+============================================= -->
+<div class="modal fade" id="modalEditUser" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <form role="form" method="POST" autocomplete="nope" enctype="multipart/form-data">
+
+                <div class="modal-header" style="background:#3c8dbc; color:white">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Editar Usuario</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="box-body">
+                        <!-- name input  -->
+                        <input type="hidden" name="editId" id="editId">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                <input class="form-control " type="text" name="editName" id="editName" required>
+                            </div>
+                        </div>
+                        <!-- userName input  -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                <input class="form-control " type="text" name="editUserName" id="editUserName" required>
+                            </div>
+                        </div>
+                        <!-- password input  -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                <input class="form-control " type="password" name="editPassword" placeholder="Escriba la nueva Contraseña" required >
+                            </div>
+                        </div>
+                        <!-- role input  -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-users"></i></span>
+                                <select class="form-control" id="editRole"  name="editRole">
+                                    <option value="" disabled>Seleccionar Role</option>
+                                    <option value="Vendedor">Vendedor</option>
+                                    <option value="Gestor">Gestor</option>
+                                    <option value="Administrador">Administrador</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- avatar input  -->
+                        <div class="form-group">
+                            <div class="panel">SUBIR FOTO</div>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-fw fa-file-image-o"></i></span>
+                                <input class="form-control newAvatar" type="file" name="editAvatar">
+                            </div>
+
+                            <p class="help-block">Peso máximo 2 Mb</p>
+                            <img class="img-thumbnail preview_image" width="100px" src="views/img/users/default/anonymous.png" alt="logo">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+                    <button type="submit" class="btn btn-primary">Modificar Usuario</button>
+                </div>
+
+                <?php
+                    UsersController::ctreditUser();
+                ?>
+
+            </form>
+
+        </div>
+    </div>
+</div>
 <!-- ============  End of MODAL  ============= -->

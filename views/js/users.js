@@ -35,3 +35,35 @@ $(".newAvatar").change(function(){
     }
 
 })
+
+/*=============================================
+=                  EDIT USER                  =
+=============================================*/
+
+$(".btnEditUser").click(function(){
+    var idUser = $(this).attr("idUser");
+    var data = new FormData();
+    data.append("idUser", idUser);
+
+
+    $.ajax({
+        url: "ajax/users.ajax.php",
+        type: "POST",
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function(res){
+            console.log(res)
+
+            $("#editId").val(res.id);
+            $("#editName").val(res.name);
+            $("#editUserName").val(res.userName);
+            $("#editRole").val(res.role);
+            if(res.avatar){
+                $(".preview_image").attr("src",res.avatar);
+            }
+        }
+    })
+})
