@@ -1,11 +1,10 @@
 <?php
-require_once "models/connection.php";
 
 class User{
 
     /**
     *
-    * Find User by userName
+    * Find one User by user By one Parameter
     *
     */
     static public function find(String $table,String $value,String $item="userName")
