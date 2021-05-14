@@ -86,4 +86,44 @@ class User{
         return $stmt->fetchAll();
     }
 
+    static public function editUser(String $table,Array $data)
+    {
+        $user = User::find($table, $data['id'], "id");
+
+        if(isset($user["id"])){
+            
+            $sql = "UPDATE $table SET name = :name, userName = :userName, password = :password, role = :role, avatar = :avatar WHERE id= :id";           
+            $stmt = Connection::connect()->prepare($sql);
+            $stmt -> bindParam(':id', $data['id'], PDO::PARAM_STR);
+            $stmt -> bindParam(':name', $data['name'], PDO::PARAM_STR);
+            $stmt -> bindParam(':userName', $data['userName'], PDO::PARAM_STR);
+            $stmt -> bindParam(':password', $data['password'], PDO::PARAM_STR);
+            $stmt -> bindParam(':role', $data['role'], PDO::PARAM_STR);
+            $stmt -> bindParam(':avatar', $data['avatar'], PDO::PARAM_STR);
+            $response = $stmt->execute();
+
+            if($response){
+                return array(
+                    'ok'=>true,
+                    'type'=>'success',
+                    'msg'=>'Usuario modificado correctamente'
+                );
+            }else{
+                return array(
+                    'ok'=>false,
+                    'type'=>'error',
+                    'msg'=>'Error modificando al usuario contacte soporte'
+                );
+
+            }
+        }else {
+            return array(
+                'ok'=>false,
+                'type'=>'error',
+                'msg'=>'El usuario no existe'
+            );
+        }
+    }
+    
+
 }
