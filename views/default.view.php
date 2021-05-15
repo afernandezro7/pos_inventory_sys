@@ -26,7 +26,12 @@
     <link rel="stylesheet" href="views/dist/css/AdminLTE.css">
     <!-- AdminLTE Skins. -->
     <link rel="stylesheet" href="views/dist/css/skins/_all-skins.min.css">
- <!-- ============  End of CSS  ============= -->
+    <!-- DataTables -->
+    <link rel="stylesheet" href="views/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="views/bower_components/datatables.net-bs/css/responsive.bootstrap.min.css">
+    <!-- Custon Css -->
+    <link rel="stylesheet" href="views/css/custom.css">
+    <!-- ============  End of CSS  ============= -->
 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
@@ -44,7 +49,15 @@
     <script src="views/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
     <!-- <script src="views/dist/js/demo.js"></script> -->
+
+    <!-- DataTables -->
+    <script src="views/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+    <script src="views/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+    <script src="views/bower_components/datatables.net-bs/js/dataTables.responsive.min.js"></script>
+    <script src="views/bower_components/datatables.net-bs/js/responsive.bootstrap.min.js"></script>
     
+    <!-- sweetalert2 -->
+    <script src="views/plugins/sweetalert2/sweetalert2.js"></script>
   <!-- ============  End of scripts  ============= -->
 </head>
 
@@ -53,6 +66,18 @@
   
   <?php
     if(isset($_SESSION["logged"]) && $_SESSION["logged"]== "ok"){
+
+
+    if (isset($_SESSION['user'])) {
+      $name = $_SESSION['user']["name"];
+      $userName = $_SESSION['user']["userName"];
+      $avatar = (empty($_SESSION['user']["avatar"]) ? 'views/img/users/default/anonymous.png' : $_SESSION['user']["avatar"]);
+    } else {
+      $name = 'Anonymous';
+      $userName = 'Anonymous';
+      $avatar = 'views/img/users/default/anonymous.png';
+    };            
+
 
       // <!-- Site wrapper -->
       echo "<div class='wrapper'>";
@@ -109,5 +134,6 @@
   ?>
 
 <script src="views/js/custom.js"></script>
+<script src="views/js/users.js"></script>
 </body>
 </html>

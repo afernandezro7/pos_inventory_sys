@@ -2,7 +2,7 @@
 
 class DefaultController{
 
-	public function renderTemplate(){
+	static public function renderTemplate(){
 
 		include "views/default.view.php";
 

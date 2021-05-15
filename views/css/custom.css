@@ -1,0 +1,5 @@
+@media (min-width: 768px) {
+    .table-width_sm {
+      width: 10px;
+    }
+}
