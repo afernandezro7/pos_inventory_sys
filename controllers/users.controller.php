@@ -45,7 +45,7 @@ class UsersController{
 					$time = date("H:i:s");
 					$lastLogin = $date . " " . $time;
 					User::editUserSimple($table, 'lastLogin',$lastLogin, 'id', $response["id"] );
-					
+
 					//Redirect to Dashboard page
 					echo "<script>window.location='inicio'</script>";
 				} else {
@@ -303,4 +303,67 @@ class UsersController{
 		return $users;
 	}
 
+	static public function ctrDeleteUser(){
+
+		if(isset($_GET['idTodelete'])){
+			$table ="users";
+			$idUser = $_GET['idTodelete'];
+
+			//verify permission
+			$permission = Helpers::getPermission($_SESSION['user']['role'],["Administrador"]);
+			if($permission == false){
+				echo "<script>
+					swal({
+						type: 'error',
+						title: 'Sólo el Administrador puede editar los usuarios',
+						showConfirmButton: true,
+						confirmButtonText: 'cerrar',
+						closeOnConfirm: false
+			 		}).then((res)=>{
+						if(res.value){
+							window.location = 'usuarios';
+						}
+					});
+				</script>";
+
+				return false;
+				//Redirect to Dashboard page
+				echo "<script>window.location='usuarios'</script>";
+
+			}
+
+			$userDb = User:: find($table, $idUser, "id");
+
+			if(is_array($userDb)){
+
+				if(!empty($userDb['avatar'])){
+					$tmpUrl = $userDb['avatar'];
+				}
+
+				$response = User::deleteUser("id",$idUser);
+
+				if($response['ok']){
+					unlink($tmpUrl);
+				}
+				
+				echo "<script>
+				swal({
+					type: '".$response['type']."',
+					title: '".$response['msg']."',
+					showConfirmButton: true,
+					confirmButtonText: 'cerrar',
+					closeOnConfirm: false
+				 }).then((res)=>{
+					if(res.value){
+						window.location = 'usuarios';
+					}
+				});
+				</script>";
+			}
+
+
+
+
+		}
+	}
 }

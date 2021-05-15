@@ -136,3 +136,26 @@ $("#newUsername").change(function(){
     })
 
 });
+
+/*=============================================
+=                   DELETE USER               =
+=============================================*/
+$(".btn_delete_user").click(function(){
+    var btn = $(this)
+    var idUser = $(this).attr("idUser");
+
+    swal({
+        type: 'warning',
+        title: '¿Está seguro de borrar el usuario?',
+        text: "¡Si no lo está puede cancelar la acción",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancelar',
+        comfirmButtonText: 'Si, borrar usuario!',
+    }).then((res)=>{
+        if(res.value){
+            window.location = 'index.php?ruta=usuarios&idTodelete='+idUser;
+        }
+    });
+})

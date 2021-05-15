@@ -25,7 +25,7 @@
             </div>
 
             <div class="box-body">
-                <table class="table table-bordered table-striped dt-responsive customTables">
+                <table class="table table-bordered table-striped dt-responsive customTables" width="100%">
                     <thead>
                         <tr>
                             <th class="table-width_sm">#</th>
@@ -81,7 +81,10 @@
                                         >
                                             <i class="fa fa-pencil"></i>
                                         </button>
-                                        <button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                        <button 
+                                            class="btn btn-danger btn_delete_user" 
+                                            idUser="<?=$user['id']?>"
+                                        ><i class="fa fa-trash"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -260,3 +263,10 @@
     </div>
 </div>
 <!-- ============  End of MODAL  ============= -->
+
+<!-- =============================================
+=                  DELETE USER                   =
+============================================= -->
+<?php
+    UsersController::ctrDeleteUser();
+?>
