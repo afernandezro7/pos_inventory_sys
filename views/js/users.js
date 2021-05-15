@@ -55,8 +55,6 @@ $(".btnEditUser").click(function(){
         processData: false,
         dataType: "json",
         success: function(res){
-            console.log(res)
-
             $("#editId").val(res.id);
             $("#editName").val(res.name);
             $("#editUserName").val(res.userName);
@@ -67,3 +65,43 @@ $(".btnEditUser").click(function(){
         }
     })
 })
+
+/*=============================================
+=             ENABLE/DISABLE USER             =
+=============================================*/
+$(".btn_activation").click(function(){
+    var btn = $(this)
+    var idUser = $(this).attr("idUser");
+    var userStatus = $(this).attr("toggleStatus");
+
+    var data = new FormData();
+    data.append("activateId", idUser);
+    data.append("userStatus", userStatus);
+
+    $.ajax({
+        url: "ajax/users.ajax.php",
+        type: "POST",
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function(res){           
+            if(res.ok){
+                if(userStatus == 0){
+                    btn.removeClass('btn-success');
+                    btn.addClass('btn-danger');
+                    btn.html('Desactivado');
+                    btn.attr('toggleStatus', '1')
+                }else if(userStatus == 1){
+                    btn.removeClass('btn-danger');
+                    btn.addClass('btn-success');
+                    btn.html('Activado');
+                    btn.attr('toggleStatus', '0')
+                }
+            }
+            
+        }
+    })
+   
+});

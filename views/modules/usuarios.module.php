@@ -57,9 +57,17 @@
                                 <td><?=$user['role']?></td>
                                 <td>
                                     <?php if ($user['status']==1) : ?>
-                                        <button class="btn btn-success btn-xs">Activado</button>
+                                        <button 
+                                            class="btn btn-success btn-xs btn_activation"
+                                            idUser="<?=$user['id']?>"
+                                            toggleStatus="0"
+                                        >Activado</button>
                                     <?php elseif($user['status']==0): ?>
-                                        <button class="btn btn-danger btn-xs">Desactivado</button>
+                                        <button 
+                                            class="btn btn-danger btn-xs btn_activation"
+                                            idUser="<?=$user['id']?>"
+                                            toggleStatus="1"
+                                        >Desactivado</button>
                                     <?php endif; ?>
                                 </td>
                                 <td><?=Helpers::LongTimeFilter($user['lastLogin'])?></td>

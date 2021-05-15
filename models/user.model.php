@@ -125,5 +125,28 @@ class User{
         }
     }
     
+    static public function editUserSimple(String $table,String $colName, $colValue, String $whereItem, $whereValue)
+    {
+        $sql = "UPDATE $table SET $colName = :colValue WHERE $whereItem= :whereValue";           
+        $stmt = Connection::connect()->prepare($sql);
+        $stmt -> bindParam(':colValue', $colValue, PDO::PARAM_STR);
+        $stmt -> bindParam(':whereValue', $whereValue, PDO::PARAM_STR);
+        $response = $stmt->execute();
+
+        if($response){
+            return array(
+                'ok'=>true,
+                'type'=>'success',
+                'msg'=>'Usuario modificado correctamente'
+            );
+        }else{
+            return array(
+                'ok'=>false,
+                'type'=>'error',
+                'msg'=>'Error modificando al usuario contacte soporte'
+            );
+
+        }
+    }
 
 }
