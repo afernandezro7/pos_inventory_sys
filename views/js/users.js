@@ -40,7 +40,7 @@ $(".newAvatar").change(function(){
 =                  EDIT USER                  =
 =============================================*/
 
-$(".btnEditUser").click(function(){
+$(document).on('click',".btnEditUser",function(){
     var idUser = $(this).attr("idUser");
     var data = new FormData();
     data.append("idUser", idUser);
@@ -69,7 +69,7 @@ $(".btnEditUser").click(function(){
 /*=============================================
 =             ENABLE/DISABLE USER             =
 =============================================*/
-$(".btn_activation").click(function(){
+$(document).on('click',".btn_activation", function(){
     var btn = $(this)
     var idUser = $(this).attr("idUser");
     var userStatus = $(this).attr("toggleStatus");
@@ -99,6 +99,21 @@ $(".btn_activation").click(function(){
                     btn.html('Activado');
                     btn.attr('toggleStatus', '0')
                 }
+            }
+
+            //refresh page for mobile device
+            if(window.matchMedia("(max-width:767px)").matches){
+                swal({
+                    type: 'success',
+                    title: 'El usuario se ha actualizado',
+                    text: "¡Si no lo está puede cancelar la acción",
+                    showCancelButton: false
+                    
+                }).then((res)=>{
+                    if(res.value){
+                        window.location = "usuarios";
+                    }
+                });
             }
             
         }
@@ -140,7 +155,7 @@ $("#newUsername").change(function(){
 /*=============================================
 =                   DELETE USER               =
 =============================================*/
-$(".btn_delete_user").click(function(){
+$(document).on('click',".btn_delete_user",function(){
     var btn = $(this)
     var idUser = $(this).attr("idUser");
 
