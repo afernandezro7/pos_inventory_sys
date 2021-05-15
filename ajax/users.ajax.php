@@ -7,6 +7,7 @@ class AjaxUsers{
 
     private $idUser;
     private $userStatus;
+    private $userName;
 
 
     public function setIdUser($idUser){
@@ -15,6 +16,9 @@ class AjaxUsers{
 
     public function setUserStatus($status){
         $this -> userStatus = $status;
+    }
+    public function setUserName($userName){
+        $this -> userName = $userName;
     }
 
     public function ajaxEditUser(){
@@ -60,6 +64,19 @@ class AjaxUsers{
 
         echo json_encode($data);
     }
+
+    public function findUserName(){
+        $table ="users";
+        $userName = $this->userName;
+        $res = User::find($table, $userName);
+        header('Content-Type: application/json');
+        if($res == false){
+            $response = false;
+        }else{
+            $response = true;
+        }
+        echo json_encode($response);
+    }
 }
 
 // Edit user
@@ -69,10 +86,17 @@ if(isset($_POST['idUser'])){
     $edit->ajaxEditUser();
 }
 
-//Toggle status of
+//Toggle status of user
 if(isset($_POST['activateId']) && isset($_POST['userStatus']) ){
     $edit = new AjaxUsers();
     $edit->setIdUser($_POST['activateId']);
     $edit->setUserStatus($_POST['userStatus']);
     $edit->toggleUserStatus();
+}
+
+//search username already exists
+if(isset($_POST['searchUsername']) ){
+    $edit = new AjaxUsers();
+    $edit->setUserName($_POST['searchUsername']);
+    $edit->findUserName();
 }

@@ -127,7 +127,7 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                <input class="form-control " type="text" name="userName" placeholder="Ingresar Usuario" required>
+                                <input class="form-control " type="text" id="newUsername" name="userName" placeholder="Ingresar Usuario" required>
                             </div>
                         </div>
                         <!-- password input  -->

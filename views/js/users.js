@@ -105,3 +105,34 @@ $(".btn_activation").click(function(){
     })
    
 });
+
+/*=============================================
+=           USER EXIST IN DB REALTIME         =
+=============================================*/
+$("#newUsername").change(function(){
+
+    $(".alert").remove();
+    var user = $(this).val();
+
+    var data = new FormData();
+    data.append("searchUsername", user);
+
+
+    $.ajax({
+        url: "ajax/users.ajax.php",
+        type: "POST",
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function(res){
+            
+            if(res){
+                $("#newUsername").parent().after('<div class="alert alert-warning">El usuario ya existe en el sistema</div>')
+                $("#newUsername").val("");
+            }
+        }
+    })
+
+});
