@@ -94,7 +94,7 @@
                 </div>
 
                 <?php
-                    // UsersController::ctrAddUser();
+                    CategoriesController::ctrAddCategory();
                 ?>
 
             </form>
