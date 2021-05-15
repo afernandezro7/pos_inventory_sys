@@ -11,6 +11,14 @@ class Category{
         return $stmt->fetch();
     }
 
+    static public function findAll(){
+        $sql = "SELECT * FROM categories ORDER BY 'createdAt' DESC";
+        $stmt = Connection::connect()->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
     static public function createCategory(Array $data){
         $category = Category::findOne( $data['name']);
 
@@ -42,4 +50,6 @@ class Category{
             }
         }
     }
+
+
 }

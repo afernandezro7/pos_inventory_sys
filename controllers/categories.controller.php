@@ -66,5 +66,10 @@ class CategoriesController{
 		}
 	}	
 
+	static public function ctrListCategories(){
+		$categories = Category::findAll();
+		return $categories;
+	}
+
 
 }

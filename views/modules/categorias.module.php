@@ -33,24 +33,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="table-width_sm">1</td>
-                            <td>Celulares</td>
-                            <td>
-                                <div class="btn-group">
-                                    <button 
-                                        class="btn btn-warning btnEditUser" 
-                                        data-toggle="modal" 
-                                        data-target="#modalEditUser"
-                                        idCategory="1"
-                                    ><i class="fa fa-pencil"></i></button>
-                                    <button 
-                                        class="btn btn-danger btn_delete_user" 
-                                        idCategory="1"
-                                    ><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
+                        <?php
+                            $categories = CategoriesController::ctrListCategories();
+                        ?>
+                        <?php foreach ($categories as $category) : ?>
+                            <tr>
+                                <td class="table-width_sm"><?=$category['id']?></td>
+                                <td><?=$category['name']?></td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button 
+                                            class="btn btn-warning btnEditUser" 
+                                            data-toggle="modal" 
+                                            data-target="#modalEditUser"
+                                            idCategory="1"
+                                        ><i class="fa fa-pencil"></i></button>
+                                        <button 
+                                            class="btn btn-danger btn_delete_user" 
+                                            idCategory="1"
+                                        ><i class="fa fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
@@ -61,7 +66,7 @@
 </div>
 
 <!-- =============================================
-=               MODAL CREATE USER                =
+=             MODAL CREATE Category              =
 ============================================= -->
 <div class="modal fade" id="modalAddCategory" role="dialog">
     <div class="modal-dialog">
