@@ -29,6 +29,7 @@ class UsersController{
 				{
 					$_SESSION["logged"] = "ok";
 					$_SESSION["user"] = array(
+						'id' => $response["id"],
 						'name' => $response["name"],
 						'userName' => $response["userName"],
 						'role' => $response["role"],
@@ -39,7 +40,15 @@ class UsersController{
 					);
 					echo "<script>window.location='inicio'</script>";
 				} else {
-					echo "<br><div class='alert alert-danger'>Usuario y/o contraseña no válido</div>";
+					if($response["userName"] == $userName && 
+				       $response["password"] == $cryptPassword &&
+				       $response["status"] == 0){
+						//User is disabled
+						echo "<br><div class='alert alert-danger'>Usuario desactivado comuníquese con un administrador</div>";
+					}else{
+						//User or password is incorrect
+						echo "<br><div class='alert alert-danger'>Usuario y/o contraseña no válido</div>";
+					}
 				};
 			}
 		}
