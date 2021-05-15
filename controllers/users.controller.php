@@ -38,6 +38,15 @@ class UsersController{
 						'lastLogin' => $response["lastLogin"],
 						'createdAt' => $response["createdAt"]
 					);
+
+					//Register last login
+					date_default_timezone_set("America/Panama");
+					$date = date("Y-m-d");
+					$time = date("H:i:s");
+					$lastLogin = $date . " " . $time;
+					User::editUserSimple($table, 'lastLogin',$lastLogin, 'id', $response["id"] );
+					
+					//Redirect to Dashboard page
 					echo "<script>window.location='inicio'</script>";
 				} else {
 					if($response["userName"] == $userName && 
