@@ -97,7 +97,7 @@ class Helpers
         }
 
         if ($file['type'] == "image/png") {
-            $path =  $dir . $name . ".png";
+            $path =  $dir . $name . ".jpg";
 
             $origin = imagecreatefrompng($file['tmp_name']);
             $destiny = imagecreatetruecolor($newWidth, $newHeight);
