@@ -102,40 +102,13 @@ class UsersController{
 					"avatar"=>$avatar,
 				);
 
-				if(isset($_FILES['avatar']['tmp_name']) ){
+				if(isset($_FILES['avatar']['tmp_name']) && $_FILES['avatar']['tmp_name'] != ""){
+					
 					$file = $_FILES['avatar'];
+					$dir = "views/img/users/";
+					$imgName = $data['userName'];
 
-					//cut image to 500x500
-					list($width,$height) = getimagesize($file['tmp_name']);
-					$newWidth = 500;
-					$newHeight = 500;
-
-					$path="";
-
-					if($file['type'] == "image/jpeg"){
-						$path = "views/img/users/".$userName.".jpg";
-
-						$origin = imagecreatefromjpeg($file['tmp_name']);
-						$destiny = imagecreatetruecolor($newWidth,$newHeight);
-
-						imagecopyresized($destiny, $origin, 0 , 0 , 0, 0, $newWidth, $newHeight, $width, $height );
-
-						imagejpeg($destiny, $path);
-					}
-
-					if($file['type'] == "image/png"){
-						$path = "views/img/users/".$userName.".png";
-
-						$origin = imagecreatefrompng($file['tmp_name']);
-						$destiny = imagecreatetruecolor($newWidth,$newHeight);
-
-						imagecopyresized($destiny, $origin, 0 , 0 , 0, 0, $newWidth, $newHeight, $width, $height );
-
-						imagepng($destiny, $path);
-					}
-
-					$data['avatar'] = $path;
-
+					$data['avatar']  = Helpers::processImage($file, $dir, $imgName);
 				}
 
 				$response = User::createUser($table, $data);
@@ -188,8 +161,8 @@ class UsersController{
 			$userDb= User::find($table,$userId,"id");
 			$editUser = $userDb;
 
+			//verify permission
 			$permission = Helpers::getPermission($_SESSION['user']['role'],["Administrador"]);
-
 			if($permission == false){
 				echo "<script>
 					swal({
@@ -208,22 +181,27 @@ class UsersController{
 				return false;
 			}
 
+			//verify if user already exists
 			if($userDb){
 				// EDIT name
 				if(isset($_POST['editName']) && 
+				  !empty($_POST['editName']) && 
 				   preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST['editName']))
 				{
 					$editUser['name'] = $_POST['editName'];
 				}
-				// EDIT userName
-				// if(isset($_POST['editUserName']) && 
-				//    preg_match('/^[a-zA-Z0-9]+$/', $_POST['editUserName']))
-				// {
-				// 	$editUser['userName'] = $_POST['editUserName'];
-				// }
+
+				//EDIT userName
+				if(isset($_POST['editUserName']) && 
+				  !empty($_POST['editUserName']) &&
+				   preg_match('/^[a-zA-Z0-9]+$/', $_POST['editUserName']))
+				{
+					$editUser['userName'] = $_POST['editUserName'];
+				}
 
 				// EDIT password
 				if(isset($_POST['editPassword']) && 
+				  !empty($_POST['editPassword']) &&
 				   preg_match('/^[a-zA-Z0-9]+$/', $_POST['editPassword']))
 				{
 					//encrypt password			
@@ -237,18 +215,23 @@ class UsersController{
 					$editUser['role'] = $_POST['editRole'];
 				}
 
-				// // EDIT avatar
-				// if(isset($_FILES['editAvatar']['tmp_name']))
-				// {
-				// 	$file = $_FILES['editAvatar'];
-				// 	$dir = "views/img/users/";
-				// 	$imgName = $editUser['editUserName'];
-				// 	//TODO:DELETE old avatar file
+				// EDIT avatar
+				if(isset($_FILES['editAvatar']['tmp_name']) && $_FILES['editAvatar']['tmp_name'] != "")
+				{
+					//DELETE old avatar file
+					$oldUrlPath = $userDb['avatar'];
+					if($oldUrlPath){
+						unlink ( $oldUrlPath );
+					}
 
-				// 	$editUser['avatar'] = Helpers::processImage($file, $dir, $imgName);
+					$file = $_FILES['editAvatar'];
+					$dir = "views/img/users/";
+					$imgName = $editUser['userName'];
+
+					$editUser['avatar'] = Helpers::processImage($file, $dir, $imgName);
 
 					
-				// }
+				}
 
 				$response = User::editUser($table, $editUser);
 				$type = $response['type'];
