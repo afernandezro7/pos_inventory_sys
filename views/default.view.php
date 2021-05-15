@@ -135,5 +135,6 @@
 
 <script src="views/js/custom.js"></script>
 <script src="views/js/users.js"></script>
+<script src="views/js/categories.js"></script>
 </body>
 </html>
