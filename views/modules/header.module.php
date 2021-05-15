@@ -3,7 +3,7 @@
     <!-- =============================================
     =                     LOGO                       =
     ============================================= -->
-    <a href="#" class="logo">
+    <a href="inicio" class="logo">
         
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini">
