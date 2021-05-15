@@ -246,12 +246,17 @@ class UsersController{
 				$type = $response['type'];
 				$msg = $response['msg'];
 
+				if($_SESSION['user']['id']==$editUser['id']){
+					$_SESSION['user']['name'] = $editUser["name"];
+					$_SESSION['user']['userName'] = $editUser["userName"];
+					$_SESSION['user']['role'] = $editUser["role"];
+					$_SESSION['user']['avatar'] = $editUser["avatar"];
+				}
+
 				echo "<script>
 					swal({
 						type: '".$type."',
 						title: '".$msg."',
-						showConfirmButton: true,
-						confirmButtonText: 'cerrar',
 						closeOnConfirm: false
 			 		}).then((res)=>{
 						if(res.value){
