@@ -2,7 +2,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Administrar Categorias
+            Administrar Categorías
         </h1>
         <ol class="breadcrumb">
             <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -36,9 +36,9 @@
                         <?php
                             $categories = CategoriesController::ctrListCategories();
                         ?>
-                        <?php foreach ($categories as $category) : ?>
+                        <?php foreach ($categories as $key => $category) : ?>
                             <tr>
-                                <td class="table-width_sm"><?=$category['id']?></td>
+                                <td class="table-width_sm"><?=$key+1?></td>
                                 <td><?=$category['name']?></td>
                                 <td>
                                     <div class="btn-group">

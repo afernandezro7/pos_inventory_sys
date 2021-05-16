@@ -41,9 +41,9 @@
                         <?php
                             $users = UsersController::ctrUsersList();
                         ?>
-                        <?php foreach ($users as $user) : ?>
+                        <?php foreach ($users as $key => $user) : ?>
                             <tr>
-                                <td><?=$user['id']?></td>
+                                <td><?=$key + 1?></td>
                                 <th>
                                     <?php if (!empty($user['avatar'])) : ?>
                                         <img class="img-responsive" width="40px" src="<?=$user['avatar']?>">
