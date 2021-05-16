@@ -2,10 +2,9 @@
 
 class ProductsController{
 
-	public function renderTemplate(){
-
-		include "views/default.view.php";
-
+	static public function ctrListProducts(){
+		$products = Product::findAll();
+		return $products;
 	}	
 
 

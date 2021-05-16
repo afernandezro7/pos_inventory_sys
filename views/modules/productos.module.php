@@ -33,7 +33,7 @@
                             <th>Descripción</th>
                             <th>Categoría</th>
                             <th>Stock</th>
-                            <th>Precio de compra</th>
+                            <th>Costo</th>
                             <th>Precio de venta</th>
                             <th>Agregado</th>
                             <th>Acciones</th>
@@ -41,25 +41,25 @@
                     </thead>
                     <tbody>
                         <?php
-                            $products =[];
+                            $products = ProductsController::ctrListProducts();
                         ?>
                         <?php foreach ($products as $key => $product) : ?>
                             <tr>
-                                <td class="table-width_sm">1</td>               
+                                <td class="table-width_sm"><?=$key+1?></td>               
                                 <td class="table-width_sm text-center">
-                                    <?php if (false) : ?>
-                                        <img class="img-thumbnail" width="40px" src="<?=$user['avatar']?>">
+                                    <?php if (!empty($product['image'])) : ?>
+                                        <img class="img-thumbnail" width="40px" src="<?=$product['image']?>">
                                     <?php else: ?>
                                         <img class="img-thumbnail" width="40px" src="views/img/products/default/anonymous.png">
                                     <?php endif; ?>
                                 </td>   
-                                <td>BR00000001</td>                        
-                                <td>Redmi Note 9</td>                        
-                                <td class="text-uppercase">Celulares</td>                        
-                                <td>26</td>                        
-                                <td>$ 150.00</td>                        
-                                <td>$ 190.00</td>                        
-                                <td>Hace 2 días</td>                        
+                                <td><?=$product['barcode']?></td>                        
+                                <td><?=$product['description']?></td>                        
+                                <td class="text-uppercase"><?=$product['category']?></td>                        
+                                <td class="text-center"><?=$product['stock']?></td>                        
+                                <td class="text-right">$ <?=$product['cost']?></td>                        
+                                <td class="text-right">$ <?=$product['sell_price']?></td>                        
+                                <td><?=Helpers::LongTimeFilter($product['createdAt'])?></td>                        
                                 <td>
                                     <div class="btn-group">
                                         <button 
