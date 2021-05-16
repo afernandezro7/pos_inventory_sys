@@ -39,7 +39,7 @@
                         <?php foreach ($categories as $key => $category) : ?>
                             <tr>
                                 <td class="table-width_sm"><?=$key+1?></td>
-                                <td><?=$category['name']?></td>
+                                <td class="text-uppercase"><?=$category['name']?></td>
                                 <td>
                                     <div class="btn-group">
                                         <button 
