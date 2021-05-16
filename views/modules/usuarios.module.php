@@ -44,13 +44,13 @@
                         <?php foreach ($users as $key => $user) : ?>
                             <tr>
                                 <td><?=$key + 1?></td>
-                                <th>
+                                <td>
                                     <?php if (!empty($user['avatar'])) : ?>
-                                        <img class="img-responsive" width="40px" src="<?=$user['avatar']?>">
+                                        <img class="img-thumbnail" width="40px" src="<?=$user['avatar']?>">
                                     <?php else: ?>
-                                        <img class="img-responsive" width="40px" src="views/img/users/default/anonymous.png">
+                                        <img class="img-thumbnail" width="40px" src="views/img/users/default/anonymous.png">
                                     <?php endif; ?>
-                                </th>
+                                </td>
                                 <td><?=$user['name']?></td>
                                 <td><?=$user['userName']?></td>
                                 <td><?=$user['role']?></td>
