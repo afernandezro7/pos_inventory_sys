@@ -56,21 +56,29 @@
                                 <td><?=$product['barcode']?></td>                        
                                 <td><?=$product['description']?></td>                        
                                 <td class="text-uppercase"><?=$product['category']?></td>                        
-                                <td class="text-center"><?=$product['stock']?></td>                        
+                                <td class="text-center">
+                                    <?php if ($product['stock'] > 20) : ?>
+                                        <button class="btn btn-success"><?=$product['stock']?></button>
+                                    <?php elseif ($product['stock'] >= 10): ?>
+                                        <button class="btn btn-warning"><?=$product['stock']?></button>
+                                    <?php else: ?>
+                                        <button class="btn btn-danger"><?=$product['stock']?></button>
+                                    <?php endif; ?>
+                                </td>                        
                                 <td class="text-right">$ <?=$product['cost']?></td>                        
                                 <td class="text-right">$ <?=$product['sell_price']?></td>                        
                                 <td><?=Helpers::LongTimeFilter($product['createdAt'])?></td>                        
                                 <td>
                                     <div class="btn-group">
                                         <button 
-                                            class="btn btn-warning btnEditUser" 
+                                            class="btn btn-warning btnEditProduct" 
                                             data-toggle="modal" 
                                             data-target="#modalEditProduct"
-                                            idProduct="1"
+                                            idProduct="<?=$product['id']?>"
                                         ><i class="fa fa-pencil"></i></button>
                                         <button 
                                             class="btn btn-danger btn_delete_product" 
-                                            idProduct="1"
+                                            idProduct="<?=$product['id']?>"
                                         ><i class="fa fa-trash"></i></button>
                                     </div>
                                 </td>
@@ -86,7 +94,7 @@
 </div>
 
 <!-- =============================================
-=               MODAL CREATE USER                =
+=              MODAL CREATE PRODUCT              =
 ============================================= -->
 <div class="modal fade" id="modalAddProduct" role="dialog">
     <div class="modal-dialog">
@@ -104,12 +112,40 @@
                 <div class="modal-body">
                     <div class="box-body">
 
-                        <!-- code input  -->
+                        <!-- category and barcode input  -->
+                        <div class="form-group row">
+                            <!-- category input  -->
+                            <?php
+                                $categories = CategoriesController::ctrListCategories();
+                            ?>
+                            <div class="col-xs-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-th"></i></span>
+                                    <select id="newCategoryproduct" class="form-control " name="newCategory" required>
+                                        <option value="" disabled selected>Seleccionar Categoría</option>
+                                        <?php foreach ($categories as $key => $category) : ?>
+                                            <option value="<?=$category['id']?>"><?=$category['name']?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                        
+                            <!-- code input  -->
+                            <div class="col-xs-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-fw fa-barcode"></i></span>
+                                    <input id="newBarcode" class="form-control " type="text" name="newBarcode" placeholder="Código del producto" required disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- stock input  -->
                         <div class="form-group">
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-fw fa-barcode"></i></span>
-                                <input class="form-control " type="text" name="newBarcode" placeholder="Ingresar código del producto" required>
-                            </div>
+                                    <span class="input-group-addon"><i class="fa fa-cubes"></i></span>
+                                    <input class="form-control " type="number" min="0" name="newStock" placeholder="Ingresar stock" required>
+                                </div>
+                            
                         </div>
 
                         <!-- description input  -->
@@ -120,28 +156,6 @@
                             </div>
                         </div>
                         
-                        <div class="form-group row">
-                            <!-- category input  -->
-                            <div class="col-xs-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-th"></i></span>
-                                    <select class="form-control " name="newCategory">
-                                        <option value="">Seleccionar Categoría</option>
-                                        <option value="1">Celulares</option>
-                                        <option value="2">SmartWatch</option>
-                                        <option value="3">Cargadores</option>
-                                    </select>
-                                </div>
-                            </div>
-                        
-                            <!-- stock input  -->
-                            <div class="col-xs-6">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-cubes"></i></span>
-                                    <input class="form-control " type="number" min="0" name="newStock" placeholder="Ingresar stock" required>
-                                </div>
-                            </div>
-                        </div>
 
 
                         <div class="form-group row" style="margin-bottom: 0;">                      
@@ -149,7 +163,7 @@
                             <div class="col-xs-6">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa  fa-usd"></i></span>
-                                    <input class="form-control " type="number" min="0" name="newCostPrice" placeholder="Ingresar costo del producto" required>
+                                    <input class="form-control " type="number" min="0" id="newCostPrice" name="newCostPrice" placeholder="Ingresar costo del producto" required>
                                 </div>
                             </div>
 
@@ -157,7 +171,7 @@
                             <div class="col-xs-6">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-money"></i></span>
-                                    <input class="form-control " type="number" min="0" name="newSellPrice" id="newSellPrice" placeholder="Ingresar precio de venta" required>
+                                    <input class="form-control " type="number" min="0"  id="newSellPrice" name="newSellPrice" placeholder="Ingresar precio de venta" required>
                                 </div>
 
                                 <br>
@@ -165,7 +179,7 @@
                                 <div class="col-xs-6">
                                     <div class="form-group">
                                         <label class="">
-                                            <input type="checkbox" class="minimal percentage">
+                                            <input type="checkbox" id="addProductCheckBox" class="minimal percentage">
                                             Utilizar Porcentaje
                                         </label>
                                     </div>
@@ -174,7 +188,7 @@
                                 <!--  percentage input  -->
                                 <div class="col-xs-6" style="padding:0">
                                     <div class="input-group">
-                                        <input class="form-control newPercentage" type="number" min="0" value="40" disabled>
+                                        <input class="form-control newPercentage" id="sellPercentValue" type="number" min="0" value="40" readonly>
                                         <span class="input-group-addon"><i class="fa fa-percent"></i></span>
                                     </div>
                                 </div>
@@ -203,7 +217,7 @@
                 </div>
 
                 <?php
-                // UsersController::ctrAddUser();
+                    ProductsController::ctrAddProduct();
                 ?>
 
             </form>
