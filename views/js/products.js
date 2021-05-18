@@ -121,7 +121,7 @@ function percentChanger(){
     var percentValue = $('#sellPercentValue').val() || 0 ;
 
     if(isPercent){
-        var newCostPrice = parseInt($('#newCostPrice').val()) || 0
+        var newCostPrice = parseFloat($('#newCostPrice').val()) || 0
         var newSellPrice =  newCostPrice +  (newCostPrice * percentValue/100) ;
         $('#newSellPrice').val(newSellPrice)
         $('#newSellPrice').prop("readOnly",true)
