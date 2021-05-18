@@ -19,7 +19,7 @@ class AjaxProducts{
         if($response){
             $data = array(
                 'ok'=> true,
-                'code'=> $response['barcode'] + 1
+                'code'=> $response['barcode']
             );
         }else{
             $data = array(
