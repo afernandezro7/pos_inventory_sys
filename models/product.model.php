@@ -2,6 +2,15 @@
 
 class Product{
 
+    static public function findOne(String $item, $value){
+        $sql = "SELECT p.*, c.name AS 'category' FROM products p INNER JOIN categories c ON p.category_id= c.id WHERE p.$item = :value";
+        $stmt = Connection::connect()->prepare($sql);
+        $stmt -> bindParam(':value', $value, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
+
     static public function findAll(){
         $sql = "SELECT p.*, c.name AS 'category' FROM products p INNER JOIN categories c ON p.category_id= c.id ORDER BY 'barcode' ASC";
         $stmt = Connection::connect()->prepare($sql);
