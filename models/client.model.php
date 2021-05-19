@@ -2,6 +2,15 @@
 
 class Client{
 
+    static public function findOne(String $item, $value){
+        $sql = "SELECT * FROM clients WHERE $item = :value";
+        $stmt = Connection::connect()->prepare($sql);
+        $stmt -> bindParam(':value', $value, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
+
     static public function findAll(){
         $sql = "SELECT * FROM clients ORDER BY createdAt DESC";
         $stmt = Connection::connect()->prepare($sql);
