@@ -93,7 +93,7 @@ class ProductsController{
 				echo "<script>
 					swal({
 						type: 'error',
-						title: 'hola',
+						title: 'Error al insertar los datos del Producto',
 						showConfirmButton: true,
 						confirmButtonText: 'cerrar',
 						closeOnConfirm: false
