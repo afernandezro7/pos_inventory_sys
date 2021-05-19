@@ -67,12 +67,12 @@
                                         <button 
                                             class="btn btn-warning btnEditClient" 
                                             data-toggle="modal" 
-                                            data-target="#modalAddClient"
-                                            idClient="1"
+                                            data-target="#modalEditClient"
+                                            idClient="<?=$client['id']?>"
                                         ><i class="fa fa-pencil"></i></button>
                                         <button 
                                             class="btn btn-danger btn_delete_client" 
-                                            idClient="1"
+                                            idClient="<?=$client['id']?>"
                                         ><i class="fa fa-trash"></i></button>
                                     </div>
                                 </td>
