@@ -44,84 +44,40 @@
                         <?php
                             $clients = ClientsController::ctrListClients();
                         ?>
-                        <tr>
-                            <td class="table-width_sm">1</td>
-                            <td>Ariel Mesa Gonzales</td>
-                            <td>8-203-1365</td>
-                            <td>test1@test.com</td>
-                            <td>68434456</td>
-                            <td>Betania C45 Calle 74 Oeste, Panamá</td>
-                            <td>19 de mayo 1987</td>
-                            <td>10</td>
-                            <td>Hace 2 días</td>
-                            <td>Hace 2 años</td>
-                            <td>
-                                <div class="btn-group">
-                                    <button 
-                                        class="btn btn-warning btnEditClient" 
-                                        data-toggle="modal" 
-                                        data-target="#modalAddClient"
-                                        idClient="1"
-                                    ><i class="fa fa-pencil"></i></button>
-                                    <button 
-                                        class="btn btn-danger btn_delete_client" 
-                                        idClient="1"
-                                    ><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="table-width_sm">2</td>
-                            <td>Miriam Mesa Gonzales</td>
-                            <td>8-103-1765</td>
-                            <td>test2@test.com</td>
-                            <td>61434556</td>
-                            <td>Betania C45 Calle 74 Oeste, Panamá</td>
-                            <td>25 de mayo 1990</td>
-                            <td>10</td>
-                            <td>Hace 5 días</td>
-                            <td>Hace 1 mes</td>
-                            <td>
-                                <div class="btn-group">
-                                    <button 
-                                        class="btn btn-warning btnEditClient" 
-                                        data-toggle="modal" 
-                                        data-target="#modalAddClient"
-                                        idClient="1"
-                                    ><i class="fa fa-pencil"></i></button>
-                                    <button 
-                                        class="btn btn-danger btn_delete_client" 
-                                        idClient="1"
-                                    ><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="table-width_sm">3</td>
-                            <td>Raquel Mesa Gonzales</td>
-                            <td>8-203-1365</td>
-                            <td>test1@test.com</td>
-                            <td>68434456</td>
-                            <td>Betania C45 Calle 74 Oeste, Panamá</td>
-                            <td>19 de mayo 1987</td>
-                            <td>10</td>
-                            <td>Hace 2 días</td>
-                            <td>Hace 2 años</td>
-                            <td>
-                                <div class="btn-group">
-                                    <button 
-                                        class="btn btn-warning btnEditClient" 
-                                        data-toggle="modal" 
-                                        data-target="#modalAddClient"
-                                        idClient="1"
-                                    ><i class="fa fa-pencil"></i></button>
-                                    <button 
-                                        class="btn btn-danger btn_delete_client" 
-                                        idClient="1"
-                                    ><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
+                        <?php foreach ($clients as $key => $client) : ?>
+                            <tr>
+                                <td class="table-width_sm"><?=$key+1?></td>
+                                <td><?=$client['name']?></td>
+                                <td><?=$client['identity']?></td>
+                                <td><?=$client['email']?></td>
+                                <td><?=$client['phone']?></td>
+                                <td><?=$client['address']?></td>
+                                <td><?=$client['birth']?></td>
+                                <td class="text-center">
+                                    <?php if ($client['purchases'] >= 5): ?>
+                                        <button class="btn btn-primary"><?=$client['purchases']?></button>
+                                    <?php else: ?>
+                                        <button class="btn btn-secundary"><?=$client['purchases']?></button>
+                                    <?php endif; ?>
+                                </td>
+                                <td><?=Helpers::LongTimeFilter($client['last_purchase'])?></td>
+                                <td><?=$client['createdAt']?></td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button 
+                                            class="btn btn-warning btnEditClient" 
+                                            data-toggle="modal" 
+                                            data-target="#modalAddClient"
+                                            idClient="1"
+                                        ><i class="fa fa-pencil"></i></button>
+                                        <button 
+                                            class="btn btn-danger btn_delete_client" 
+                                            idClient="1"
+                                        ><i class="fa fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
