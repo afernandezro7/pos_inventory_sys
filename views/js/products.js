@@ -94,36 +94,128 @@ function nextcodegenerator(item,type='lastcode'){
 }
 
 /*=============================================
-=          AUTOCALCULATE SELLPRICE            =
+= AUTOCALCULATE SELLPRICE IN ADD PRODUCT MODAL=
 =============================================*/
-//Change in cost input
-$('#newCostPrice').change(function(){
-    percentChanger();
-})
-//Change in checkbox input
-$('#addProductCheckBox').on('ifChecked', function(event){
-    $('#newSellPrice').prop('readOnly',true)
-    $('#sellPercentValue').prop('readOnly',false)
-    percentChanger();
-});
-$('#addProductCheckBox').on('ifUnchecked', function(event){
-    $('#newSellPrice').prop('readOnly',false)
-    $('#sellPercentValue').prop('readOnly',true)
-});
-
-//Change in percent input
-$('#sellPercentValue').change(function(){
-    percentChanger();
-})
-
-function percentChanger(){
-    var isPercent = $('#addProductCheckBox').prop('checked');
-    var percentValue = $('#sellPercentValue').val() || 0 ;
+function activateListeners(costId, sellpriceId, checkboxId, percentId){
+    //Change in cost input
+    $(costId).change(function(){
+        percentChanger(costId, sellpriceId, checkboxId, percentId);
+    })
+    //Change in checkbox input
+    $(checkboxId).on('ifChecked', function(event){
+        $(sellpriceId).prop('readOnly',true)
+        $(percentId).prop('readOnly',false)
+        percentChanger(costId, sellpriceId, checkboxId, percentId);
+    });
+    $(checkboxId).on('ifUnchecked', function(event){
+        $(sellpriceId).prop('readOnly',false)
+        $(percentId).prop('readOnly',true)
+    });
+    //Change in percent input
+    $(percentId).change(function(){
+        percentChanger(costId, sellpriceId, checkboxId, percentId);
+    })
+}
+function percentChanger(costId, sellpriceId, checkboxId, percentId){
+    var isPercent = $(checkboxId).prop('checked');
+    var percentValue = $(percentId).val() || 0 ;
 
     if(isPercent){
-        var newCostPrice = parseFloat($('#newCostPrice').val()) || 0
+        var newCostPrice = parseFloat($(costId).val()) || 0
         var newSellPrice =  newCostPrice +  (newCostPrice * percentValue/100) ;
-        $('#newSellPrice').val(newSellPrice)
-        $('#newSellPrice').prop("readOnly",true)
+        $(sellpriceId).val(newSellPrice)
+        $(sellpriceId).prop("readOnly",true)
     }
 } 
+
+var addcheckboxId = '#addProductCheckBox';
+var addpercentId = '#sellPercentValue';
+var addsellpriceId = '#newSellPrice';
+var addcostId = '#newCostPrice';
+
+activateListeners(addcostId, addsellpriceId, addcheckboxId, addpercentId)
+
+/*=============================================
+=                  EDIT USER                  =
+=============================================*/
+
+$(document).on('click',".btnEditProduct",function(){
+    var idProduct = $(this).attr("idProduct");
+    var data = new FormData();
+    data.append("idProduct", idProduct);
+
+
+    $.ajax({
+        url: "ajax/products.ajax.php",
+        type: "POST",
+        data: data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function(res){
+            console.log(res)
+            if (res.ok) {
+                $("#editCategoryproduct").val(res.data.category_id);
+                $("#editCategoryproduct").html(res.data.category);
+                $("#editBarcode").val(res.data.barcode);
+                $("#editStock").val(res.data.stock);
+                $("#editDescription").val(res.data.description);
+                $("#editCostPrice").val(res.data.cost);
+                $("#editSellPrice").val(res.data.sell_price);
+                if(res.data.image){
+                    $(".preview_image").attr("src",res.data.image);
+                }
+            }else{
+                window.location = 'productos';
+            }
+        }
+    })
+})
+
+var editcheckboxId = '#editProductCheckBox';
+var editpercentId = '#editsellPercentValue';
+var editsellpriceId = '#editSellPrice';
+var editcostId = '#editCostPrice';
+
+activateListeners(editcostId, editsellpriceId, editcheckboxId, editpercentId)
+
+
+
+
+
+
+
+
+
+// //Change in cost input
+// $('#newCostPrice').change(function(){
+//     percentChanger();
+// })
+// //Change in checkbox input
+// $('#addProductCheckBox').on('ifChecked', function(event){
+//     $('#newSellPrice').prop('readOnly',true)
+//     $('#sellPercentValue').prop('readOnly',false)
+//     percentChanger();
+// });
+// $('#addProductCheckBox').on('ifUnchecked', function(event){
+//     $('#newSellPrice').prop('readOnly',false)
+//     $('#sellPercentValue').prop('readOnly',true)
+// });
+
+// //Change in percent input
+// $('#sellPercentValue').change(function(){
+//     percentChanger();
+// })
+
+// function percentChanger(){
+//     var isPercent = $('#addProductCheckBox').prop('checked');
+//     var percentValue = $('#sellPercentValue').val() || 0 ;
+
+//     if(isPercent){
+//         var newCostPrice = parseFloat($('#newCostPrice').val()) || 0
+//         var newSellPrice =  newCostPrice +  (newCostPrice * percentValue/100) ;
+//         $('#newSellPrice').val(newSellPrice)
+//         $('#newSellPrice').prop("readOnly",true)
+//     }
+// } 
