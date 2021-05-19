@@ -154,7 +154,7 @@ $(document).on('click',".btnEditProduct",function(){
         processData: false,
         dataType: "json",
         success: function(res){
-            console.log(res)
+
             if (res.ok) {
                 $("#editProductId").val(res.data.id);
                 $("#editCategoryproduct").val(res.data.category_id);
@@ -196,7 +196,7 @@ $(document).on('click',".btn_delete_product",function(){
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
         cancelButtonText: 'Cancelar',
-        comfirmButtonText: 'Si, borrar categoría!',
+        comfirmButtonText: 'Si, borrar producto!',
     }).then((res)=>{
         if(res.value){
             window.location = 'index.php?ruta=productos&idTodelete='+idProduct;

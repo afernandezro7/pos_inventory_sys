@@ -245,6 +245,9 @@
                 <div class="modal-body">
                     <div class="box-body">
 
+                        <!-- id hidden input  -->
+                        <input type="hidden" name="editProductId" id="editProductId">
+
                         <!-- category and barcode input  -->
                         <div class="form-group row">
                             <!-- category input  -->
@@ -286,7 +289,6 @@
 
 
                         <div class="form-group row" style="margin-bottom: 0;">      
-                            <input type="hidden" name="editProductId" id="editProductId">
                             <!-- cost price input  -->
                             <div class="col-xs-12 col-sm-6 mb-xs">
                                 <div class="input-group">
