@@ -357,7 +357,7 @@
 </div>
 
 <!-- =============================================
-=                  DELETE USER                   =
+=                  DELETE PRODUCT                =
 ============================================= -->
 <?php
     ProductsController::ctrDeleteProduct();
