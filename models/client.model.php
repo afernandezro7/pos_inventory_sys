@@ -24,7 +24,7 @@ class Client{
 
         // $query = "INSERT INTO products(name"
         //         ", identity"
-        //         ", emai"l
+        //         ", email"
         //         ", phone"
         //         ", address"
         //         ", birth"
@@ -100,6 +100,92 @@ class Client{
             );
 
         } 
+    }
+
+    static public function editClient(Array $data){
+        $client = Client::findOne("id", $data['id'] );
+
+        if(isset($client["id"])){
+
+            // $query = "UPDATE clients SET name = :name"
+            //                             ", identity = :identity"
+            //                             ", email = :email"
+            //                             ", phone = :phone"
+            //                             ", address = :address"
+            //                             ",birth = :birth " 
+            //                             "WHERE id= :id";           
+            
+            $update = "UPDATE clients SET name = :name";
+            $where = "WHERE id= :id";
+        
+            if(!empty($data['identity'])){
+                $update .= ', identity = :identity';
+            }
+            if(!empty($data['email'])){
+                $update .= ', email = :email';
+            }
+            if(!empty($data['phone'])){
+                $update .= ', phone = :phone';
+            }
+            if(!empty($data['address'])){
+                $update .= ', address = :address';
+            }
+            if(!empty($data['birth'])){
+                $update .= ',birth = :birth';
+            }
+
+
+
+            $sql = $update ." ".$where;
+
+            $stmt = Connection::connect()->prepare($sql);
+            $stmt -> bindParam(':id', $data['id'], PDO::PARAM_STR);
+            $stmt -> bindParam(':name', $data['name'], PDO::PARAM_STR);
+            
+            if(!empty($data['identity'])){
+                $stmt -> bindParam(':identity', $data['identity'], PDO::PARAM_STR);
+            }
+    
+            if(!empty($data['email'])){
+                $stmt -> bindParam(':email', $data['email'], PDO::PARAM_STR);
+            }
+            
+            if(!empty($data['phone'])){
+                $stmt -> bindParam(':phone', $data['phone'], PDO::PARAM_STR);
+            }
+            
+            if(!empty($data['address'])){
+                $stmt -> bindParam(':address', $data['address'], PDO::PARAM_STR);
+            }
+            
+            if(!empty($data['birth'])){
+                $stmt -> bindParam(':birth', $data['birth'], PDO::PARAM_STR);
+            }
+
+            $response = $stmt->execute();
+    
+            if($response){
+                return array(
+                    'ok'=>true,
+                    'type'=>'success',
+                    'msg'=>'Cliente modificado correctamente'
+                );
+            }else{
+                return array(
+                    'ok'=>false,
+                    'type'=>'error',
+                    'msg'=>'Error modificando cliente contacte soporte'
+                );
+    
+            }
+        }else {
+            return array(
+                'ok'=>false,
+                'type'=>'error',
+                'msg'=>'El cliente no existe'
+            );
+        }
+
     }
 
 

@@ -83,8 +83,10 @@ class ClientsController{
 	if(isset($_POST['editClientId'])){
 
 		$clientId = $_POST['editClientId'];
-		$clientDb= Product::findOne("id",$clientId);
+		$clientDb= Client::findOne("id",$clientId);
 		$editClient = $clientDb;
+
+
 
 		//verify if product exists
 		if($clientDb){
@@ -126,13 +128,14 @@ class ClientsController{
 			// EDIT birth
 			if(isset($_POST['editClientBirthDate']) && !empty($_POST['editClientBirthDate']))
 			{
-				$editClient['address'] = $_POST['editClientBirthDate'];
+				$editClient['birth'] = $_POST['editClientBirthDate'];
 			}
 		
 			$response = Client::editClient($editClient);
 			$type = $response['type'];
 			$msg = $response['msg'];
 
+			
 			echo "<script>
 				swal({
 					type: '".$type."',
