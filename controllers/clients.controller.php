@@ -43,7 +43,7 @@ class ClientsController{
 						closeOnConfirm: false
 			 		}).then((res)=>{
 						if(res.value){
-							window.location = 'productos';
+							window.location = 'clientes';
 						}
 					});
 				</script>";
@@ -57,7 +57,7 @@ class ClientsController{
 						closeOnConfirm: false
 					 }).then((res)=>{
 						if(res.value){
-							window.location = 'productos';
+							window.location = 'clientes';
 						}
 					});
 				</script>";
