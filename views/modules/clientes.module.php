@@ -279,7 +279,7 @@
                 </div>
 
                 <?php
-                    ClientsController::ctrAddClient();
+                    ClientsController::ctrEditClient();
                 ?>
 
             </form>
