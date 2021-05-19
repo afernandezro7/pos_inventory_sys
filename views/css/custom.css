@@ -2,4 +2,11 @@
     .table-width_sm {
       width: 10px;
     }
+
+}
+
+@media (max-width: 768px) {
+    .mb-xs {
+        margin-bottom: 1.5rem !important;
+    }
 }

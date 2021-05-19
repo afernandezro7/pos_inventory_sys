@@ -99,22 +99,22 @@ $(document).on('click',".btn_activation", function(){
                     btn.html('Activado');
                     btn.attr('toggleStatus', '0')
                 }
+                //refresh page for mobile device
+                if(window.matchMedia("(max-width:767px)").matches){
+                    swal({
+                        type: 'success',
+                        title: 'El usuario se ha actualizado',
+                        text: "¡Si no lo está puede cancelar la acción",
+                        showCancelButton: false
+                        
+                    }).then((res)=>{
+                        if(res.value){
+                            window.location = "usuarios";
+                        }
+                    });
+                }
             }
 
-            //refresh page for mobile device
-            if(window.matchMedia("(max-width:767px)").matches){
-                swal({
-                    type: 'success',
-                    title: 'El usuario se ha actualizado',
-                    text: "¡Si no lo está puede cancelar la acción",
-                    showCancelButton: false
-                    
-                }).then((res)=>{
-                    if(res.value){
-                        window.location = "usuarios";
-                    }
-                });
-            }
             
         }
     })

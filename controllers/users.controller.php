@@ -82,13 +82,13 @@ class UsersController{
 			{ 
 				
 				
-				$permission = Helpers::getPermission($_SESSION['user']['role'],["Administrador"]);
+				$permission = Helpers::getPermission($_SESSION['user']['role'],["Administrador", "Gestor"]);
 				
 				if($permission == false){
 					echo "<script>
 					swal({
 						type: 'error',
-						title: 'Sólo el Administrador puede crear usuarios',
+						title: 'No está autorizado a crear usuarios',
 						showConfirmButton: true,
 						confirmButtonText: 'cerrar',
 						closeOnConfirm: false
@@ -180,7 +180,7 @@ class UsersController{
 			$editUser = $userDb;
 
 			//verify permission
-			$permission = Helpers::getPermission($_SESSION['user']['role'],["Administrador"]);
+			$permission = Helpers::getPermission($_SESSION['user']['role'],["Administrador","Gestor"]);
 			if($permission == false){
 				echo "<script>
 					swal({
@@ -315,7 +315,7 @@ class UsersController{
 				echo "<script>
 					swal({
 						type: 'error',
-						title: 'Sólo el Administrador puede editar los usuarios',
+						title: 'Sólo el Administrador puede eliminar los usuarios',
 						showConfirmButton: true,
 						confirmButtonText: 'cerrar',
 						closeOnConfirm: false

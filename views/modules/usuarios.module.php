@@ -2,8 +2,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Usuarios
-            <small>Panel de Control</small>
+        Administrar Usuarios
         </h1>
         <ol class="breadcrumb">
             <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -42,16 +41,16 @@
                         <?php
                             $users = UsersController::ctrUsersList();
                         ?>
-                        <?php foreach ($users as $user) : ?>
+                        <?php foreach ($users as $key => $user) : ?>
                             <tr>
-                                <td><?=$user['id']?></td>
-                                <th>
+                                <td><?=$key + 1?></td>
+                                <td>
                                     <?php if (!empty($user['avatar'])) : ?>
-                                        <img class="img-responsive" width="40px" src="<?=$user['avatar']?>">
+                                        <img class="img-thumbnail" width="40px" src="<?=$user['avatar']?>">
                                     <?php else: ?>
-                                        <img class="img-responsive" width="40px" src="views/img/users/default/anonymous.png">
+                                        <img class="img-thumbnail" width="40px" src="views/img/users/default/anonymous.png">
                                     <?php endif; ?>
-                                </th>
+                                </td>
                                 <td><?=$user['name']?></td>
                                 <td><?=$user['userName']?></td>
                                 <td><?=$user['role']?></td>

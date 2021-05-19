@@ -29,6 +29,8 @@
     <!-- DataTables -->
     <link rel="stylesheet" href="views/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
     <link rel="stylesheet" href="views/bower_components/datatables.net-bs/css/responsive.bootstrap.min.css">
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link rel="stylesheet" href="views/plugins/iCheck/all.css">
     <!-- Custon Css -->
     <link rel="stylesheet" href="views/css/custom.css">
     <!-- ============  End of CSS  ============= -->
@@ -58,6 +60,9 @@
     
     <!-- sweetalert2 -->
     <script src="views/plugins/sweetalert2/sweetalert2.js"></script>
+
+    <!-- iCheck 1.0.1 -->
+    <script src="views/plugins/iCheck/icheck.min.js"></script>
   <!-- ============  End of scripts  ============= -->
 </head>
 
@@ -135,5 +140,7 @@
 
 <script src="views/js/custom.js"></script>
 <script src="views/js/users.js"></script>
+<script src="views/js/categories.js"></script>
+<script src="views/js/products.js"></script>
 </body>
 </html>
