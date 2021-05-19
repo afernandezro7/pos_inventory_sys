@@ -129,13 +129,13 @@ class ProductsController{
 				echo "<script>
 					swal({
 						type: 'error',
-						title: 'No está autorizado a editar los usuarios',
+						title: 'No está autorizado a editar productos',
 						showConfirmButton: true,
 						confirmButtonText: 'cerrar',
 						closeOnConfirm: false
 			 		}).then((res)=>{
 						if(res.value){
-							window.location = 'categorias';
+							window.location = 'productos';
 						}
 					});
 				</script>";
@@ -217,6 +217,78 @@ class ProductsController{
 							window.location = 'productos';
 						}
 					});
+				</script>";
+			}
+		}
+	}
+
+	static public function ctrDeleteProduct(){
+		if(isset($_GET['idTodelete'])){
+			$idProduct = $_GET['idTodelete'];
+
+			//verify permission
+			$permission = Helpers::getPermission($_SESSION['user']['role'],["Administrador", "Gestor"]);
+			if($permission == false){
+				echo "<script>
+					swal({
+						type: 'error',
+						title: 'No está autorizado a eliminar productos',
+						showConfirmButton: true,
+						confirmButtonText: 'cerrar',
+						closeOnConfirm: false
+			 		}).then((res)=>{
+						if(res.value){
+							window.location = 'productos';
+						}
+					});
+				</script>";
+
+				return false;
+				//Redirect to Dashboard page
+				echo "<script>window.location='productos'</script>";
+
+			}
+
+			$productDb = Product:: findOne( "id", $idProduct );
+
+			if(is_array($productDb)){
+
+				if(!empty($productDb['image'])){
+					$tmpUrl = $productDb['image'];
+				}
+
+				$response = Product::deleteProduct("id", $idProduct);
+
+				if($response['ok']){
+					unlink($tmpUrl);
+				}
+
+				echo "<script>
+				swal({
+					type: '".$response['type']."',
+					title: '".$response['msg']."',
+					showConfirmButton: true,
+					confirmButtonText: 'cerrar',
+					closeOnConfirm: false
+				 }).then((res)=>{
+					if(res.value){
+						window.location = 'productos';
+					}
+				});
+				</script>";
+			}else{
+				echo "<script>
+				swal({
+					type: 'error',
+					title: 'No se encontró el producto',
+					showConfirmButton: true,
+					confirmButtonText: 'cerrar',
+					closeOnConfirm: false
+				 }).then((res)=>{
+					if(res.value){
+						window.location = 'productos';
+					}
+				});
 				</script>";
 			}
 		}
