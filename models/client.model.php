@@ -2,6 +2,14 @@
 
 class Client{
 
+    static public function findAll(){
+        $sql = "SELECT * FROM clients ORDER BY createdAt DESC";
+        $stmt = Connection::connect()->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+
     static public function createClient(Array $data)
     {
 
