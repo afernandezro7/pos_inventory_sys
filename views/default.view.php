@@ -71,7 +71,7 @@
   <!-- ============  End of scripts  ============= -->
 </head>
 
-<body class="hold-transition skin-blue sidebar-collapse sidebar-mini <?= isset($_SESSION["logged"]) && $_SESSION["logged"]=="ok" ? "":"login-page"?>">
+<body class="hold-transition skin-blue sidebar-mini <?= isset($_SESSION["logged"]) && $_SESSION["logged"]=="ok" ? "":"login-page"?>">
   
   
   <?php
