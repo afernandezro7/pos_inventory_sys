@@ -101,4 +101,26 @@ class Product{
 
     }
 
+    static public function deleteProduct(String $item , $value){
+        $sql = "DELETE FROM products WHERE $item = :value"; 
+        $stmt = Connection::connect()->prepare($sql);
+        $stmt -> bindParam(':value', $value, PDO::PARAM_STR);
+        $response = $stmt->execute();   
+        
+        if($response){
+            return array(
+                'ok'=>true,
+                'type'=>'success',
+                'msg'=>'Producto eliminado correctamente'
+            );
+        }else{
+            return array(
+                'ok'=>false,
+                'type'=>'error',
+                'msg'=>'Error eliminando producto, contacte soporte'
+            );
+
+        }
+    }
+
 }
