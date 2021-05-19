@@ -188,5 +188,26 @@ class Client{
 
     }
 
+    static public function deleteClient(String $item , $value){
+        $sql = "DELETE FROM clients WHERE $item = :value"; 
+        $stmt = Connection::connect()->prepare($sql);
+        $stmt -> bindParam(':value', $value, PDO::PARAM_STR);
+        $response = $stmt->execute();   
+        
+        if($response){
+            return array(
+                'ok'=>true,
+                'type'=>'success',
+                'msg'=>'Cliente eliminado correctamente'
+            );
+        }else{
+            return array(
+                'ok'=>false,
+                'type'=>'error',
+                'msg'=>'Error eliminando cliente, contacte soporte'
+            );
+
+        }
+    }    
 
 }
