@@ -8,7 +8,7 @@ class ProductsController{
 	}	
 
 	static public function ctrAddProduct(){
-		
+			/*POST */
 		// newProductCategory
 		// newBarcode
 		// newStock
@@ -107,5 +107,118 @@ class ProductsController{
 		}
 	}	
 
+	static public function ctrEditProduct(){
+			/*POST */
+		// editProductId
+		// editCategoryproduct
+		// editBarcode
+		// editStock
+		// editDescription
+		// editCostPrice
+		// editSellPrice
+		// editImageProduct
+		if(isset($_POST['editProductId'])){
 
+			$productId = $_POST['editProductId'];
+			$producDb= Product::findOne("id",$productId);
+			$editProduct = $producDb;
+
+			//verify permission
+			$permission = Helpers::getPermission($_SESSION['user']['role'],["Administrador","Gestor"]);
+			if($permission == false){
+				echo "<script>
+					swal({
+						type: 'error',
+						title: 'No está autorizado a editar los usuarios',
+						showConfirmButton: true,
+						confirmButtonText: 'cerrar',
+						closeOnConfirm: false
+			 		}).then((res)=>{
+						if(res.value){
+							window.location = 'categorias';
+						}
+					});
+				</script>";
+
+				return false;
+			}
+
+			//verify if product exists
+			if($producDb){
+				// EDIT stock
+				if(isset($_POST['editStock']) && 
+				  !empty($_POST['editStock']) && 
+				   preg_match('/^[0-9]+$/', $_POST['editStock']))
+				{
+					$editProduct['stock'] = $_POST['editStock'];
+				}
+
+				// EDIT description
+				if(isset($_POST['editDescription']) && !empty($_POST['editDescription']))
+				{
+					$editProduct['description'] = $_POST['editDescription'];
+				}
+
+				// EDIT cost
+				if(isset($_POST['editCostPrice']) && 
+				  !empty($_POST['editCostPrice']) && 
+				  filter_var($_POST['editCostPrice'], FILTER_VALIDATE_FLOAT))
+				{
+					$editProduct['cost'] = $_POST['editCostPrice'];
+				}
+
+				// EDIT sell_price
+				if(isset($_POST['editSellPrice']) && 
+				  !empty($_POST['editSellPrice']) && 
+				  filter_var($_POST['editSellPrice'], FILTER_VALIDATE_FLOAT))
+				{
+					$editProduct['sell_price'] = $_POST['editSellPrice'];
+				}
+
+				// EDIT avatar
+				if(isset($_FILES['editImageProduct']['tmp_name']) && $_FILES['editImageProduct']['tmp_name'] != "")
+				{
+					//DELETE old avatar file
+					$oldUrlPath = $producDb['image'];
+					if($oldUrlPath){
+						unlink ( $oldUrlPath );
+					}
+
+					$file = $_FILES['editImageProduct'];
+					$dir = "views/img/products/";
+					$imgName = $editProduct['barcode'];
+
+					$editProduct['image'] = Helpers::processImage($file, $dir, $imgName);				
+				}
+
+				$response = Product::editProduct($editProduct);
+				$type = $response['type'];
+				$msg = $response['msg'];
+
+				echo "<script>
+					swal({
+						type: '".$type."',
+						title: '".$msg."',
+						closeOnConfirm: false
+			 		}).then((res)=>{
+						if(res.value){
+							window.location = 'productos';
+						}
+					});
+				</script>";
+
+			}else{
+				echo "<script>
+					swal({
+						type: 'error',
+						title: 'Producto no encontrado, error al editarlo'
+			 		}).then((res)=>{
+						if(res.value){
+							window.location = 'productos';
+						}
+					});
+				</script>";
+			}
+		}
+	}
 }

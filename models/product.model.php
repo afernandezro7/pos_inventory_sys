@@ -61,4 +61,44 @@ class Product{
         } 
     }
 
+    static public function editProduct(Array $data){
+        $product = Product::findOne("id", $data['id'] );
+
+        if(isset($product["id"])){
+
+            $sql = "UPDATE products SET stock = :stock, description = :description, cost = :cost, sell_price = :sell_price, image = :image WHERE id= :id";           
+            $stmt = Connection::connect()->prepare($sql);
+            $stmt -> bindParam(':id', $data['id'], PDO::PARAM_STR);
+            $stmt -> bindParam(':stock', $data['stock'], PDO::PARAM_STR);
+            $stmt -> bindParam(':description', $data['description'], PDO::PARAM_STR);
+            $stmt -> bindParam(':cost', $data['cost'], PDO::PARAM_STR);
+            $stmt -> bindParam(':sell_price', $data['sell_price'], PDO::PARAM_STR);
+            $stmt -> bindParam(':image', $data['image'], PDO::PARAM_STR);
+            $response = $stmt->execute();
+    
+            if($response){
+                return array(
+                    'ok'=>true,
+                    'type'=>'success',
+                    'msg'=>'Producto modificado correctamente'
+                );
+            }else{
+                return array(
+                    'ok'=>false,
+                    'type'=>'error',
+                    'msg'=>'Error modificando producto contacte soporte'
+                );
+    
+            }
+        }else {
+            return array(
+                'ok'=>false,
+                'type'=>'error',
+                'msg'=>'El producto no existe'
+            );
+        }
+
+
+    }
+
 }

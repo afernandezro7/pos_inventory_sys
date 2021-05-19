@@ -156,6 +156,7 @@ $(document).on('click',".btnEditProduct",function(){
         success: function(res){
             console.log(res)
             if (res.ok) {
+                $("#editProductId").val(res.data.id);
                 $("#editCategoryproduct").val(res.data.category_id);
                 $("#editCategoryproduct").html(res.data.category);
                 $("#editBarcode").val(res.data.barcode);
