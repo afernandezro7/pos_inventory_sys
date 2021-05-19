@@ -41,6 +41,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <?php
+                            $clients = ClientsController::ctrListClients();
+                        ?>
                         <tr>
                             <td class="table-width_sm">1</td>
                             <td>Ariel Mesa Gonzales</td>

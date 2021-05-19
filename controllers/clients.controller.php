@@ -2,6 +2,11 @@
 
 class ClientsController{
 
+	static public function ctrListClients(){
+		$clients = Client::findAll();
+		return $clients;
+	}
+
 	static public function ctrAddClient(){
 			/*POST */
 		// newClientName
