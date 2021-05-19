@@ -217,7 +217,7 @@
                 </div>
 
                 <?php
-                    // ClientsController::ctrAddClient();
+                    ClientsController::ctrAddClient();
                 ?>
 
             </form>

@@ -2,11 +2,9 @@
 
 class ClientsController{
 
-	public function renderTemplate(){
+	static public function ctrAddClient(){
 
-		include "views/default.view.php";
-
-	}	
+	}
 
 
 }
