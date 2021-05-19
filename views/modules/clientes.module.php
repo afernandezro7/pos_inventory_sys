@@ -184,3 +184,106 @@
         </div>
     </div>
 </div>
+
+<!-- =============================================
+=               MODAL EDIT Client               =
+============================================= -->
+<div class="modal fade" id="modalEditClient" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <form role="form" method="POST" enctype="multipart/form-data">
+
+                <div class="modal-header" style="background:#3c8dbc; color:white">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">Editar Cliente</h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="box-body">
+                        <!-- id hidden input  -->
+                        <input type="hidden" name="editClientId" id="editClientId">
+
+                        <!-- name input  -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                <input class="form-control " type="text" id="editClientName" name="editClientName" placeholder="Ingresar Nombre" required>
+                            </div>
+                        </div>
+
+                        <!-- identity input  -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-code"></i></span>
+                                <input class="form-control " type="text" id="editClientIdentity" name="editClientIdentity" placeholder="Ingresar Cédula" >
+                            </div>
+                        </div>
+
+                        <!-- email input  -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+                                <input class="form-control " type="email" id="editClientEmail" name="editClientEmail" placeholder="Ingresar Email" >
+                            </div>
+                        </div>
+
+                        <!-- phone input  -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                <input 
+                                    class="form-control" 
+                                    type="text" 
+                                    id="editClientPhone" 
+                                    name="editClientPhone" 
+                                    placeholder="Ingresar Teléfono"
+                                    data-inputmask="'mask':'(+999) 99999999'" 
+                                    data-mask
+                                >
+                            </div>
+                        </div>
+
+                        <!-- address input  -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-map-marker"></i></span>
+                                <input class="form-control " type="text" id="editClientAddress" name="editClientAddress" placeholder="Ingresar Dirección" >
+                            </div>
+                        </div>
+
+                        <!-- date of birth input  -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa  fa-calendar"></i></span>
+                                <input 
+                                    class="form-control" 
+                                    type="text" 
+                                    id="editClientBirthDate" 
+                                    name="editClientBirthDate" 
+                                    placeholder="Ingresar Fecha de Nacimiento"
+                                    data-inputmask="'alias':'yyyy/mm/dd'" 
+                                    data-mask
+                                >
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
+                    <button type="submit" class="btn btn-primary">Guardar Cliente</button>
+                </div>
+
+                <?php
+                    ClientsController::ctrAddClient();
+                ?>
+
+            </form>
+
+        </div>
+    </div>
+</div>
