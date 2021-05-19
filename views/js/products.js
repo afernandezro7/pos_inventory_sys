@@ -136,7 +136,7 @@ var addcostId = '#newCostPrice';
 activateListeners(addcostId, addsellpriceId, addcheckboxId, addpercentId)
 
 /*=============================================
-=                  EDIT USER                  =
+=                  EDIT PRODUCT               =
 =============================================*/
 
 $(document).on('click',".btnEditProduct",function(){
@@ -181,42 +181,25 @@ var editcostId = '#editCostPrice';
 
 activateListeners(editcostId, editsellpriceId, editcheckboxId, editpercentId)
 
+/*=============================================
+=               DELETE PRODUCT                =
+=============================================*/
+$(document).on('click',".btn_delete_product",function(){
+    var btn = $(this)
+    var idProduct = $(this).attr("idProduct");
 
-
-
-
-
-
-
-
-// //Change in cost input
-// $('#newCostPrice').change(function(){
-//     percentChanger();
-// })
-// //Change in checkbox input
-// $('#addProductCheckBox').on('ifChecked', function(event){
-//     $('#newSellPrice').prop('readOnly',true)
-//     $('#sellPercentValue').prop('readOnly',false)
-//     percentChanger();
-// });
-// $('#addProductCheckBox').on('ifUnchecked', function(event){
-//     $('#newSellPrice').prop('readOnly',false)
-//     $('#sellPercentValue').prop('readOnly',true)
-// });
-
-// //Change in percent input
-// $('#sellPercentValue').change(function(){
-//     percentChanger();
-// })
-
-// function percentChanger(){
-//     var isPercent = $('#addProductCheckBox').prop('checked');
-//     var percentValue = $('#sellPercentValue').val() || 0 ;
-
-//     if(isPercent){
-//         var newCostPrice = parseFloat($('#newCostPrice').val()) || 0
-//         var newSellPrice =  newCostPrice +  (newCostPrice * percentValue/100) ;
-//         $('#newSellPrice').val(newSellPrice)
-//         $('#newSellPrice').prop("readOnly",true)
-//     }
-// } 
+    swal({
+        type: 'warning',
+        title: '¿Está seguro de borrar el producto?',
+        text: "¡Si no lo está puede cancelar la acción",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancelar',
+        comfirmButtonText: 'Si, borrar categoría!',
+    }).then((res)=>{
+        if(res.value){
+            window.location = 'index.php?ruta=productos&idTodelete='+idProduct;
+        }
+    });
+})
