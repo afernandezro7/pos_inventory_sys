@@ -154,7 +154,7 @@ $(document).on('click',".btnEditProduct",function(){
         processData: false,
         dataType: "json",
         success: function(res){
-            console.log(res)
+
             if (res.ok) {
                 $("#editProductId").val(res.data.id);
                 $("#editCategoryproduct").val(res.data.category_id);
