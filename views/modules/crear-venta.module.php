@@ -32,11 +32,14 @@
                                     </div>
                                 </div>
 
-                                <!-- sellcode input      -->
+                                <!-- sell_code input      -->
+                                <?php 
+                                    $sell_code= SellsController::getSellcode()
+                                ?>
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                        <input class="form-control" type="text" value="1234242" name="newSellCode" readonly required>
+                                        <input class="form-control" type="text" value="<?=$sell_code?>" name="newSellCode" readonly required>
                                     </div>
                                 </div>
 

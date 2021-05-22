@@ -114,4 +114,26 @@ class Helpers
     {
         return in_array ( $role , $rolesAdmited );
     }
+
+    static public function sellCodeViewGenerator(int $code){
+        $code_lenght=strlen($code);
+        $sellcode_lenght = 7; // max code lenght admitted
+        $max_value = pow(10,$sellcode_lenght)-1; //9 999 999 max value lenght admitted        
+        $identity = "F";
+
+        $sellcodeview =$identity."-".$code;
+
+        if ($code<=$max_value) {
+            $zeros = "";
+            for ($i=0; $i < $sellcode_lenght-$code_lenght; $i++) { 
+                $zeros .='0';
+            }
+
+            $sellcodeview = $identity."-".$zeros.$code;
+        }
+
+        return $sellcodeview;
+
+
+    }
 }
