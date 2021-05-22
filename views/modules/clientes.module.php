@@ -94,7 +94,7 @@
     <div class="modal-dialog">
 
         <div class="modal-content">
-            <form role="form" method="POST" enctype="multipart/form-data">
+            <form role="form" method="POST">
 
                 <div class="modal-header" style="background:#3c8dbc; color:white">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
