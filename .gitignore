@@ -1,3 +1,5 @@
 /plantilla/
 /.vscode/
 views/img/users/
+
+db.sql
