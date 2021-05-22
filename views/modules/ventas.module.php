@@ -1,47 +1,71 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        ventas
-        <small>Panel de Control</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li class="active">Dashboard</li>
-      </ol>
+        <h1>
+            Administrar Ventas
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="inicio"><i class="fa fa-dashboard"></i> Inicio</a></li>
+            <li class="active">Ventas</li>
+        </ol>
     </section>
 
     <!-- Main content -->
     <section class="content">
-      <div class="callout callout-info">
-        <h4>Tip!</h4>
+        <!-- Default box -->
+        <div class="box">
 
-        <p>Add the sidebar-collapse class to the body tag to get this layout. You should combine this option with a
-          fixed layout if you have a long sidebar. Doing that will prevent your page content from getting stretched
-          vertically.</p>
-      </div>
-      <!-- Default box -->
-      <div class="box">
-        <div class="box-header with-border">
-          <h3 class="box-title">Title</h3>
+            <div class="box-header with-border">
 
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-              <i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-              <i class="fa fa-times"></i></button>
-          </div>
+                <a href="crear-venta" class="btn btn-primary">
+                    Agregar Venta
+                </a>
+
+            </div>
+
+            <div class="box-body">      
+                <table class="table table-bordered table-striped dt-responsive customTables" width="100%">
+                    <thead>
+                        <tr>
+                            <th class="table-width_sm">#</th>
+                            <th>Factura</th>
+                            <th>Cliente</th>
+                            <th>Vendedor</th>
+                            <th>Forma de Pago</th>
+                            <th>Neto</th>
+                            <th>Total</th>
+                            <th>Fecha</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="table-width_sm">1</td>
+                            <td>1000123</td>
+                            <td>Ariel Villegas</td>
+                            <td>Julio Martinez</td>
+                            <td>TC-12412441261221</td>
+                            <td>$ 1,000.00</td>
+                            <td>$ 1,190.00</td>
+                            <td>Hace 2 dias</td>                       
+                            <td>
+                                <div class="btn-group">
+                                    <button 
+                                        class="btn btn-primary btnPrint"                                
+                                    ><i class="fa fa-print"></i></button>
+                                    <button 
+                                        class="btn btn-danger btn_delete_sell" 
+                                        idSell="1"
+                                    ><i class="fa fa-trash"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
-        <div class="box-body">
-          Start creating your amazing application!
-        </div>
-        <!-- /.box-body -->
-        <div class="box-footer">
-          Footer
-        </div>
-        <!-- /.box-footer-->
-      </div>
-      <!-- /.box -->
     </section>
-    <!-- /.content -->
+
 </div>
+
