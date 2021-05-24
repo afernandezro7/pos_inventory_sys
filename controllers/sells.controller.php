@@ -19,7 +19,10 @@ class SellsController{
 
 	}	
 
-	
+	static public function ctrListSells(){
+		$sells = Sell::findAllBasic();
+		return $sells;
+	}
 
 
 }
