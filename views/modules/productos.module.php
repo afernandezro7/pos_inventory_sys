@@ -53,7 +53,16 @@
                                         <img class="img-thumbnail" width="40px" src="views/img/products/default/anonymous.png">
                                     <?php endif; ?>
                                 </td>   
-                                <td><?=$product['barcode']?></td>                        
+                                <td>
+                                    <?=$product['barcode']?>
+                                </td> 
+                                <!-- <td class="thumbnail" style="margin-bottom: 0;background-color:transparent">                               
+                                    <img class="img-thumbnail" width="100" src="views/img/sells/default/barcode.jpg">
+                                    <div class="caption text-center" style="padding: 0;">
+
+                                        <strong><?=$product['barcode']?></strong>
+                                    </div>
+                                </td> -->
                                 <td><?=$product['description']?></td>                        
                                 <td class="text-uppercase"><?=$product['category']?></td>                        
                                 <td class="text-center">
