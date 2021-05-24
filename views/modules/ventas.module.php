@@ -39,27 +39,32 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="table-width_sm">1</td>
-                            <td>1000123</td>
-                            <td>Ariel Villegas</td>
-                            <td>Julio Martinez</td>
-                            <td>TC-12412441261221</td>
-                            <td>$ 1,000.00</td>
-                            <td>$ 1,190.00</td>
-                            <td>Hace 2 dias</td>                       
-                            <td>
-                                <div class="btn-group">
-                                    <button 
-                                        class="btn btn-primary btnPrint"                                
-                                    ><i class="fa fa-print"></i></button>
-                                    <button 
-                                        class="btn btn-danger btn_delete_sell" 
-                                        idSell="1"
-                                    ><i class="fa fa-trash"></i></button>
-                                </div>
-                            </td>
-                        </tr>
+                        <?php
+                            $sells = SellsController::ctrListSells();
+                        ?>
+                        <?php foreach ($sells as $key => $sell) : ?>
+                            <tr>
+                                <td class="table-width_sm"><?=$key+1?></td>
+                                <td class="text-center"><?=Helpers::sellCodeViewGenerator($sell['sell_code'])?></td>
+                                <td><?=$sell['client']?></td>
+                                <td><?=$sell['vendor']?></td>
+                                <td><?=$sell['payment_method']?></td>
+                                <td>$ <?=$sell['net_price']?></td>
+                                <td>$ <?=$sell['total_price']?></td>
+                                <td>$ <?=$sell['createdAt']?></td>                     
+                                <td>
+                                    <div class="btn-group">
+                                        <button 
+                                            class="btn btn-primary btnPrint"                                
+                                        ><i class="fa fa-print"></i></button>
+                                        <button 
+                                            class="btn btn-danger btn_delete_sell" 
+                                            idSell="1"
+                                        ><i class="fa fa-trash"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
