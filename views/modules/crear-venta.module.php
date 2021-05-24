@@ -21,7 +21,7 @@
 
                     <div class="box-header with-border"></div>
 
-                    <form role="form" method="post">
+                    <form role="form" id="form_sell" method="post">
                         <div class="box-body">
                             <div class="box" style="box-shadow: none;">
                                 <!-- Vendor input      -->
@@ -33,10 +33,10 @@
                                 </div>
 
                                 <!-- sell_code input      -->
-                                <?php 
-                                    $sell_code= SellsController::getSellcode()
-                                ?>
                                 <div class="form-group">
+                                    <?php 
+                                        $sell_code= SellsController::getSellcode()
+                                    ?>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-key"></i></span>
                                         <input class="form-control" type="text" value="<?=$sell_code?>" name="newSellCode" readonly required>
@@ -45,10 +45,16 @@
 
                                 <!-- client input      -->
                                 <div class="form-group">
+                                    <?php 
+                                        $clients = ClientsController::ctrListClients()
+                                    ?>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-users"></i></span>
                                         <select class="form-control" id="selectClient" name="selectClient" placeholder="Agregar Cliente" required>
                                             <option value="" disabled selected>Seleccionar Cliente</option>
+                                            <?php foreach ($clients as $key => $client) : ?>
+                                                <option value="<?=$client['id']?>"><?=$client['name']?></option>
+                                            <?php endforeach; ?>
                                         </select>
                                         <span class="input-group-addon" style="padding:3px">
                                             <button 
@@ -62,60 +68,15 @@
                                     </div>
                                 </div>
 
-                                <!-- add product input      -->
-                                <div class="form-group row newProduct">
+                                <!-- add product input  sells.js    -->
+                                <div class="form-group newProduct" style="padding-bottom:5px">
                                     <!-- product description -->
-                                    <div class="col-xs-6" style="padding-right:0px">
-                                        <div class="input-group">
-                                            <span class="input-group-addon" style="padding:3px">
-                                                <button class="btn btn-danger btn-xs" type="button">
-                                                    <i class="fa fa-times"></i>
-                                                </button>
-                                            </span>
-                                            <input 
-                                                class="form-control" 
-                                                type="text" 
-                                                id="addProduct"  
-                                                name="addProduct" 
-                                                placeholder="Descripción del Producto"  
-                                                required
-                                            >
-                                        </div>
-                                    </div>
-
                                     <!-- product amount -->
-                                    <div class="col-xs-3">
-                                        <input 
-                                            class="form-control" 
-                                            type="number" 
-                                            id="newAmountProduct"  
-                                            name="newAmountProduct"
-                                            min="1" 
-                                            placeholder="Cant"  
-                                            required
-                                        >
-                                    </div>
-
-                                    <!-- price -->
-                                    <div class="col-xs-3" style="padding-left:0px">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
-                                            <input 
-                                                class="form-control" 
-                                                type="number" 
-                                                id="newPriceProduct"  
-                                                name="newPriceProduct"
-                                                min="1" 
-                                                step="any"
-                                                placeholder="000"  
-                                                required
-                                            >
-                                        </div>
-                                    </div>
+                                    <!-- price -->                                   
                                 </div>
 
                                 <!-- add product button  -->
-                                <button type="button" class="btn btn-default hidden-lg">Agregar Producto</button>                               
+                                <button type="button" class="btn btn-default hidden-lg add_product_mobile">Agregar Producto</button>                               
                                 
                                 <!-- tax and total  -->
                                 <hr style="margin-bottom: 5px;">                              
@@ -201,6 +162,8 @@
                         <div class="box-footer">
                             <button type="submit" class="btn btn-primary pull-right">Guardar Venta</button>
                         </div>
+
+
                     </form>
                 </div>
             </div>
@@ -212,33 +175,57 @@
                     <div class="box-header with-border"></div>
 
                     <div class="box-body">
-                        <table class="table table-bordered table-striped dt-responsive customTables">
+                        <table class="table table-bordered table-striped dt-responsive customTables sellTable" width="100%">
                             <thead>
                                 <tr>
                                     <th class="table-width_sm">#</th>
+                                    <th>Imagen</th>
                                     <th>Código</th>
                                     <th>Descripción</th>
-                                    <th>Categoría</th>
                                     <th>Stock</th>
                                     <th>Precio</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>I003-000001</td>
-                                    <td>Huawei y9</td>
-                                    <td>Celulares Huawei</td>
-                                    <td class="text-center">17</td>
-                                    <td>$ 180.00</td>
-                                    <td>
-                                        <div class="btn-group">
-                                            <button class="btn btn-primary" type="button">Agregar</button>
-                                        </div>
-                                    </td>
-                                    
-                                </tr>
+                                <?php
+                                    $products = ProductsController::ctrListProducts();
+                                ?>
+                                <?php foreach ($products as $key => $product) : ?>
+                                    <?php if ($product['stock'] > 0) : ?>
+                                        <tr>
+                                            <td><?=$key+1?></td>
+                                            <td class="table-width_sm text-center">
+                                                <?php if (!empty($product['image'])) : ?>
+                                                    <img class="img-thumbnail" width="40px" src="<?=$product['image']?>">
+                                                <?php else: ?>
+                                                    <img class="img-thumbnail" width="40px" src="views/img/products/default/anonymous.png">
+                                                <?php endif; ?>
+                                            </td>
+                                            <td><?=$product['barcode']?></td>
+                                            <td><?=$product['description']?></td>
+                                            <td class="text-center">
+                                                <?php if ($product['stock'] > 20) : ?>
+                                                    <button class="btn btn-success"><?=$product['stock']?></button>
+                                                <?php elseif ($product['stock'] >= 10): ?>
+                                                    <button class="btn btn-warning"><?=$product['stock']?></button>
+                                                <?php else: ?>
+                                                    <button class="btn btn-danger"><?=$product['stock']?></button>
+                                                <?php endif; ?>
+                                            </td>
+                                            <td class="text-right">$ <?=$product['sell_price']?></td>  
+                                            <td>
+                                                <div class="btn-group">
+                                                    <button 
+                                                        class="btn btn-primary add_product_to_sell_action rescue_btn" 
+                                                        type="button"
+                                                        idProduct="<?=$product['id']?>"
+                                                    >Agregar</button>
+                                                </div>
+                                            </td>                   
+                                        </tr>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                     </div>

@@ -71,7 +71,7 @@
   <!-- ============  End of scripts  ============= -->
 </head>
 
-<body class="hold-transition skin-blue sidebar-mini <?= isset($_SESSION["logged"]) && $_SESSION["logged"]=="ok" ? "":"login-page"?>">
+<body class="hold-transition skin-blue sidebar-mini sidebar-collapse <?= isset($_SESSION["logged"]) && $_SESSION["logged"]=="ok" ? "":"login-page"?>">
   
   
   <?php
@@ -148,5 +148,6 @@
 <script src="views/js/categories.js"></script>
 <script src="views/js/products.js"></script>
 <script src="views/js/clients.js"></script>
+<script src="views/js/sells.js"></script>
 </body>
 </html>

@@ -72,12 +72,39 @@ class AjaxProducts{
         echo json_encode($data);
     }
 
+    public function getProducts(){
+        $res = Product::findAll();
+
+        if($res){
+            $data = array(
+                'ok'=> true,
+                'data'=> $res
+            );
+        }else{
+            $data = array(
+                'ok'=> false,
+                'code'=> "ERROR"
+            );
+
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($data);
+    }
+
 }
+
 // Edit product
 if(isset($_POST['idProduct'])){
     $edit = new AjaxProducts();
     $edit->setIdProduct($_POST['idProduct']);
     $edit->ajaxEditProduct();
+}
+
+// all products
+if(isset($_POST['allProducts']) == true){
+    $edit = new AjaxProducts();
+    $edit->getProducts();
 }
 
 // Get barcode

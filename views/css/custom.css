@@ -2,6 +2,12 @@
     .table-width_sm {
       width: 10px;
     }
+    .pr-sm-0 {
+        padding-right: 0;
+    }
+    .pl-sm-0 {
+        padding-left: 0;
+    }
 
 }
 
@@ -10,3 +16,4 @@
         margin-bottom: 1.5rem !important;
     }
 }
+
