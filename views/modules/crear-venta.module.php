@@ -162,6 +162,10 @@
                             <button type="submit" class="btn btn-primary pull-right">Guardar Venta</button>
                         </div>
 
+                        <?php
+                            SellsController::ctrAddSell();
+                        ?>
+
 
                     </form>
                 </div>
