@@ -68,6 +68,10 @@
     <script src="views/plugins/input-mask/jquery.inputmask.js"></script>
     <script src="views/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
     <script src="views/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    
+    <!-- Number format -->
+    <script src="views/plugins/jnumber/number.js"></script>
+
   <!-- ============  End of scripts  ============= -->
 </head>
 

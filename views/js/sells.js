@@ -380,9 +380,11 @@ function sumPrices() {
     }
 
 
-    var tax=$('#newSellTax').val()
+    var tax=Number( $('#newSellTax').val() )
 
-    $('#newTotalSell').val(total + (Number(tax)/100)*total)
+    $('#newTotalSell').val(total + ( tax/100 * total))
+    $('#newTotalSell').number(true,2)
+    console.log($('#newTotalSell').val())
 
 
 }

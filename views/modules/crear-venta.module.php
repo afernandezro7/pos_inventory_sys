@@ -110,9 +110,8 @@
                                                         <div class="input-group">
                                                             <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
                                                             <input 
-                                                                type="number" 
-                                                                class="form-control" 
-                                                                min="1"
+                                                                type="text" 
+                                                                class="form-control"
                                                                 id="newTotalSell"  
                                                                 name="newTotalSell" 
                                                                 placeholder="0000"
