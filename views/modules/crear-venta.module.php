@@ -134,13 +134,13 @@
                                             <select class="form-control" id="newPaymentMethod" name="newPaymentMethod" required>
                                                 <option value="" disabled selected>Método de pago</option>
                                                 <option value="efectivo" >Efectivo</option>
-                                                <option value="tc" >Tarjeta Crédito</option>
-                                                <option value="td" >Tarjeta Débito</option>
+                                                <option value="TC" >Tarjeta Crédito</option>
+                                                <option value="TD" >Tarjeta Débito</option>
                                             </select>
                                             <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
                                         </div>
                                     </div>
-                                    <div class="col-xs-6" style="padding-left: 0px">
+                                    <!-- <div class="col-xs-6" style="padding-left: 0px">
                                         <div class="input-group">
                                             <input 
                                                 type="text"
@@ -148,11 +148,11 @@
                                                 id="newTransactionCode"
                                                 name="newTransactionCode"
                                                 placeholder="Código Transacción"
-                                                required
+                                                
                                             >
                                             <span class="input-group-addon"><i class="fa fa-lock"></i></span>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                 </div>
                                 

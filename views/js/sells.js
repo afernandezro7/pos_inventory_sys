@@ -52,10 +52,11 @@ $(document).on('click',".add_product_to_sell_action",function(){
                                 </button>
                             </span>
                             <input 
-                                class="form-control" 
+                                class="form-control product_desc" 
                                 type="text" 
                                 name="addProduct" 
-                                value="${description}"  
+                                value="${description}" 
+                                idProduct="${idProduct}" 
                                 readonly
                                 required
                             >
@@ -248,7 +249,7 @@ $(document).on('click',".add_product_mobile",function(){
                                     <i class="fa fa-times"></i>
                                 </button>
                             </span>
-                            <select class="form-control new_description_product" name="addProduct" required>
+                            <select class="form-control new_description_product product_desc" name="addProduct" required>
                             <option value="" disabled selected>Seleccionar Producto</option>
                                 ${options.join()} 
                             </select>
@@ -335,6 +336,8 @@ $('#form_sell').on('change',"select.new_description_product",function(){
             
             if(res.ok){
 
+                selectElement.attr("idProduct",res.data.id)
+
                 stockElement.addClass("product_amount")
                 stockElement.prop("max",res.data.stock)
                 stockElement.attr("stock",res.data.stock)
@@ -384,12 +387,114 @@ function sumPrices() {
 
     $('#newTotalSell').val(total + ( tax/100 * total))
     $('#newTotalSell').number(true,2)
-    console.log($('#newTotalSell').val())
-
+    cashreturn()
 
 }
 
 $('#form_sell').on('change',"input#newSellTax",function(){
     sumPrices();
 })
+
+
+/*=============================================
+=              Payment Methods                =
+=============================================*/
+$('#form_sell').on('change',"#newPaymentMethod",function(){
+    var method = $(this).val();
+
+    if(method === "efectivo"){
+
+        $(this).parent().parent().removeClass('col-xs-6')
+        $(this).parent().parent().addClass('col-xs-4')
+        $(this).parent().parent().parent().children('.newTransactionCode').remove()
+
+        $(this).parent().parent().parent().append(`
+            <div class="col-xs-4 deliveredcash" style="padding-left: 0px">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
+                    <input 
+                        type="text"
+                        class="form-control"
+                        id="delivered_cash"
+                        step="any"
+                        name="delivered_cash"
+                        placeholder="Entregado"
+
+                    >
+                </div>
+            </div>
+            <div class="col-xs-4 changecash" style="padding-left: 0px">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
+                    <input 
+                        type="text"
+                        class="form-control"
+                        id="change_cash"
+                        name="change_cash"
+                        placeholder="Devolver"
+
+                    >
+                </div>
+            </div>
+        `)
+
+        $("#delivered_cash").number(true,2);
+
+    }else {
+        $(this).parent().parent().removeClass('col-xs-4')
+        $(this).parent().parent().addClass('col-xs-6')
+        $(this).parent().parent().parent().children('.deliveredcash').remove()
+        $(this).parent().parent().parent().children('.changecash').remove()
+        $(this).parent().parent().parent().children('.newTransactionCode').remove()
+
+        $(this).parent().parent().parent().append(`
+            <div class="col-xs-6 newTransactionCode" style="padding-left: 0px">
+                <div class="input-group">
+                    <input 
+                        type="text"
+                        class="form-control"
+                        id="newTransactionCode"
+                        name="newTransactionCode"
+                        placeholder="Código Transacción"
+                    >
+                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                </div>
+            </div>
+        `)
+        
+
+    }
+})
+
+$('#form_sell').on('change',"#delivered_cash",function(){
+    cashreturn()
+})
+
+
+function cashreturn() {
+
+    var cash = Number($('#delivered_cash').val()) || null;
+    var total = Number($('#newTotalSell').val() ) || null; 
+
+    if(cash && total){
+
+        if( cash >= total){
+    
+            $('#change_cash').val(cash - total)
+            $('#change_cash').prop('readonly',true)
+        } else {
+            $('#change_cash').val("Faltan $" + (total-cash))  
+            $('#change_cash').prop('readonly',true)
+        }  
+    }
+    
+}
+
+/*=============================================
+=             SELL PRODUCTS LIST              =
+=============================================*/
+
+
+
+
 
