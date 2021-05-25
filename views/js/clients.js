@@ -16,13 +16,6 @@ $(document).on('click',".btnEditClient",function(){
         processData: false,
         dataType: "json",
         success: function(res){
-            console.log(res)
-            // editClientName
-            // editClientIdentity
-            // editClientEmail
-            // editClientPhone
-            // editClientAddress
-            // editClientBirthDate
             
             if (res.ok) {
 
