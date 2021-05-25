@@ -100,7 +100,7 @@
                                                                 min="0"
                                                                 id="newSellTax"  
                                                                 name="newSellTax" 
-                                                                placeholder="0"  
+                                                                value="0"  
                                                                 required
                                                             >
                                                             <span class="input-group-addon"><i class="fa fa-percent"></i></span>

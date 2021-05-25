@@ -114,6 +114,8 @@ $(document).on('click',".add_product_to_sell_action",function(){
                     </div>
                 `);
 
+                sumPrices();
+
             }else{
                 btn.addClass("btn-primary add_product_to_sell_action")
             }
@@ -137,6 +139,8 @@ $('#form_sell').on('change',"input.product_amount",function(){
     var total = Number(stockElement.val()) * Number(priceElement.val())
     priceElement.attr("stock",stockElement.val())
     priceElement.attr("total",total)
+
+    sumPrices();
    
     
 })
@@ -154,6 +158,8 @@ $('#form_sell').on('change',"input.product_price",function(){
     var total = Number(stockElement.val()) * Number(priceElement.val())
     priceElement.attr("stock",stockElement.val())
     priceElement.attr("total",total)
+
+    sumPrices();
 })
 //edit final price for client
 $('#form_sell').on('change',"input.price_checkbox",function(){
@@ -200,6 +206,7 @@ $('#form_sell').on('click',"button.quit_product_sell",function(){
     localStorage.setItem('quit_product',JSON.stringify(idQuitProduct))
 
     $('button.rescue_btn[idProduct='+idProduct+']').addClass("btn-primary add_product_to_sell_action")
+    sumPrices();
 })
 
 
@@ -325,7 +332,7 @@ $('#form_sell').on('change',"select.new_description_product",function(){
         processData: false,
         dataType: "json",
         success: function(res){
-            console.log(res)
+            
             if(res.ok){
 
                 stockElement.addClass("product_amount")
@@ -342,6 +349,8 @@ $('#form_sell').on('change',"select.new_description_product",function(){
                 priceElement.attr("stock",1)
                 priceElement.attr("total",res.data.sell_price)
 
+                sumPrices();
+
             }
         }
     })
@@ -353,4 +362,32 @@ $('#form_sell').on('change',"select.new_description_product",function(){
 =============================================*/
 $('#form_sell').on('click',"button.quit_product_sell_mobile",function(){   
     $(this).parent().parent().parent().parent().remove();
+    sumPrices();
 })
+
+/*=============================================
+=                   SUM PRICES                =
+=============================================*/
+function sumPrices() {
+    
+    var itemPrice = $('.product_price')
+
+    var total = 0;
+    for (var i = 0; i < itemPrice.length; i++) {
+
+        total += Number($(itemPrice[i]).attr("total"));
+        
+    }
+
+
+    var tax=$('#newSellTax').val()
+
+    $('#newTotalSell').val(total + (Number(tax)/100)*total)
+
+
+}
+
+$('#form_sell').on('change',"input#newSellTax",function(){
+    sumPrices();
+})
+
