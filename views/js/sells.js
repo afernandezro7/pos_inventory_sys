@@ -51,15 +51,16 @@ $(document).on('click',".add_product_to_sell_action",function(){
                                     <i class="fa fa-times"></i>
                                 </button>
                             </span>
-                            <input 
+                            <select 
                                 class="form-control product_desc" 
-                                type="text" 
-                                name="addProduct" 
-                                value="${description}" 
                                 idProduct="${idProduct}" 
-                                readonly
+                                name="addProductSell" 
+                                readonly  
                                 required
                             >
+                                <option value="${idProduct}">${description}</option>
+                            </select>
+                            
                         </div>
                     </div>`
                 ;
@@ -116,6 +117,7 @@ $(document).on('click',".add_product_to_sell_action",function(){
                 `);
 
                 sumPrices();
+                assignName();
 
             }else{
                 btn.addClass("btn-primary add_product_to_sell_action")
@@ -208,6 +210,7 @@ $('#form_sell').on('click',"button.quit_product_sell",function(){
 
     $('button.rescue_btn[idProduct='+idProduct+']').addClass("btn-primary add_product_to_sell_action")
     sumPrices();
+    assignName();
 })
 
 
@@ -249,7 +252,7 @@ $(document).on('click',".add_product_mobile",function(){
                                     <i class="fa fa-times"></i>
                                 </button>
                             </span>
-                            <select class="form-control new_description_product product_desc" name="addProduct" required>
+                            <select class="form-control new_description_product product_desc" name="addProductSell" required>
                             <option value="" disabled selected>Seleccionar Producto</option>
                                 ${options.join()} 
                             </select>
@@ -353,6 +356,7 @@ $('#form_sell').on('change',"select.new_description_product",function(){
                 priceElement.attr("total",res.data.sell_price)
 
                 sumPrices();
+                assignName();
 
             }
         }
@@ -366,6 +370,7 @@ $('#form_sell').on('change',"select.new_description_product",function(){
 $('#form_sell').on('click',"button.quit_product_sell_mobile",function(){   
     $(this).parent().parent().parent().parent().remove();
     sumPrices();
+    assignName()
 })
 
 /*=============================================
@@ -385,13 +390,14 @@ function sumPrices() {
 
     var tax=Number( $('#newSellTax').val() )
 
+    $('#newNetTotalSell').val(total)
     $('#newTotalSell').val(total + ( tax/100 * total))
     $('#newTotalSell').number(true,2)
     cashreturn()
 
 }
 
-$('#form_sell').on('change',"input#newSellTax",function(){
+$('#form_sell').on('change',"#newSellTax",function(){
     sumPrices();
 })
 
@@ -477,14 +483,15 @@ function cashreturn() {
     var total = Number($('#newTotalSell').val() ) || null; 
 
     if(cash && total){
+        $('#change_cash').prop('readonly',true)
 
         if( cash >= total){
-    
-            $('#change_cash').val(cash - total)
-            $('#change_cash').prop('readonly',true)
+            var number = (cash - total).toFixed(2)
+            $('#change_cash').val( number )
         } else {
-            $('#change_cash').val("Faltan $" + (total-cash))  
-            $('#change_cash').prop('readonly',true)
+            var number = (total-cash).toFixed(2)
+            $('#change_cash').val("Faltan $" + number)  
+            
         }  
     }
     
@@ -493,7 +500,28 @@ function cashreturn() {
 /*=============================================
 =             SELL PRODUCTS LIST              =
 =============================================*/
+nextDescriptionName = 1;
 
+function nextDescName() {
+    var current = nextDescriptionName;
+    nextDescriptionName++
+    return current
+}
+
+function assignName(){
+    var descItems = $('.product_desc')
+    var amountItems = $('.product_amount')
+    var priceItems = $('.product_price')
+
+    for (let i = 0; i < descItems.length; i++) {
+        $(descItems[i]).prop('name', 'addProductSell' + (i+1))
+        $(amountItems[i]).prop('name', 'newAmountProduct' + (i+1))
+        $(priceItems[i]).prop('name', 'newPriceProduct' + (i+1))
+    }
+
+    $('#itemAmount').val(descItems.length)
+
+}
 
 
 
