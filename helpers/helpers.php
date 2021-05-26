@@ -136,4 +136,8 @@ class Helpers
 
 
     }
+
+    static public function sellCodeDecoer(string $code){
+        return intval(explode("-",$code)[1]);
+    }
 }
