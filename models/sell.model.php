@@ -2,6 +2,15 @@
 
 class Sell{
 
+    static public function findOne(String $item, $value){
+        $sql = "SELECT * FROM sells  WHERE $item = :value";
+        $stmt = Connection::connect()->prepare($sql);
+        $stmt -> bindParam(':value', $value, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
+
     static public function getLastSellCode(){
         $sql = "SELECT * FROM sells ORDER BY id DESC LIMIT 1";
         $stmt = Connection::connect()->prepare($sql);
