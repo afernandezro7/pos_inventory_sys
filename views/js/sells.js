@@ -391,8 +391,7 @@ function sumPrices() {
     var tax=Number( $('#newSellTax').val() )
 
     $('#newNetTotalSell').val(total)
-    $('#newTotalSell').val(total + ( tax/100 * total))
-    $('#newTotalSell').number(true,2)
+    $('#newTotalSell').val((total + ( tax/100 * total)).toFixed(2))
     cashreturn()
 
 }
