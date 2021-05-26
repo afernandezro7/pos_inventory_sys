@@ -12,7 +12,7 @@ class Client{
     }
 
     static public function findAll(){
-        $sql = "SELECT * FROM clients ORDER BY createdAt DESC";
+        $sql = "SELECT * FROM clients ORDER BY last_purchase DESC";
         $stmt = Connection::connect()->prepare($sql);
         $stmt->execute();
 
@@ -209,5 +209,42 @@ class Client{
 
         }
     }    
+
+    static public function addbuytoClient( int $id , int $value){
+        $client = Client::findOne("id", $id );
+
+        if(isset($client["id"])){
+
+            $purchases = intval($client["purchases"]) + $value;
+            
+            $sql = "UPDATE clients SET purchases = :purchases, last_purchase = CURRENT_TIMESTAMP() WHERE id= :id";    
+            $stmt = Connection::connect()->prepare($sql);
+            $stmt -> bindParam(':id', $id, PDO::PARAM_STR);
+            $stmt -> bindParam(':purchases', $purchases, PDO::PARAM_STR);
+            
+            $response = $stmt->execute();
+    
+            if($response){
+                return array(
+                    'ok'=>true,
+                    'type'=>'success',
+                    'msg'=>'cliente modificado correctamente'
+                );
+            }else{
+                return array(
+                    'ok'=>false,
+                    'type'=>'error',
+                    'msg'=>'Error modificando cliente contacte soporte'
+                );
+    
+            }
+        }else {
+            return array(
+                'ok'=>false,
+                'type'=>'error',
+                'msg'=>'El cliente no existe'
+            );
+        }
+    }
 
 }
