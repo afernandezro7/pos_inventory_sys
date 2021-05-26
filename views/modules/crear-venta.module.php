@@ -50,7 +50,7 @@
                                     ?>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-users"></i></span>
-                                        <select class="form-control" id="selectClient" name="selectClient" placeholder="Agregar Cliente" required>
+                                        <select class="form-control" id="selectClient" name="selectClientSell" placeholder="Agregar Cliente" required>
                                             <option value="" disabled selected>Seleccionar Cliente</option>
                                             <?php foreach ($clients as $key => $client) : ?>
                                                 <option value="<?=$client['id']?>"><?=$client['name']?></option>
