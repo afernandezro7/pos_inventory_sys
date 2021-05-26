@@ -99,6 +99,7 @@
                                                                 type="number" 
                                                                 class="form-control" 
                                                                 min="0"
+                                                                step="any"
                                                                 id="newSellTax"  
                                                                 name="newSellTax" 
                                                                 value="0"  
@@ -164,9 +165,7 @@
                             <button type="submit" class="btn btn-primary pull-right">Guardar Venta</button>
                         </div>
 
-                        <?php
-                            SellsController::ctrAddSell();
-                        ?>
+                        
 
 
                     </form>
@@ -237,6 +236,10 @@
                     
                 </div>
             </div>
+
+            <?php
+                SellsController::ctrAddSell();
+            ?>
 
         </div>
     </section>
