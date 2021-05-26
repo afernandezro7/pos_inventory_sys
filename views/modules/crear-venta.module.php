@@ -72,7 +72,8 @@
                                 <div class="form-group newProduct" style="padding-bottom:5px">
                                     <!-- product description -->
                                     <!-- product amount -->
-                                    <!-- price -->                                   
+                                    <!-- price -->  
+                                    <input type="hidden" value="0" name="itemAmount" id="itemAmount">                                 
                                 </div>
 
                                 <!-- add product button  -->
