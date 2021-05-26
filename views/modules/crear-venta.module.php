@@ -119,6 +119,7 @@
                                                                 readonly  
                                                                 required
                                                             >
+                                                            <input type="hidden" name="newNetTotalSell" id="newNetTotalSell">
                                                         </div>
                                                     </td>
                                                 </tr>
