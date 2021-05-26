@@ -123,4 +123,79 @@ class Product{
         }
     }
 
+    static public function reduceInventary( int $id , int $value){
+        $product = Product::findOne("id", $id );
+
+        if(isset($product["id"])){
+
+            $newStock = intval($product["stock"]) - intval($value);
+
+            $sql = "UPDATE products SET stock = :stock WHERE id= :id";           
+            $stmt = Connection::connect()->prepare($sql);
+            $stmt -> bindParam(':id', $id, PDO::PARAM_STR);
+            $stmt -> bindParam(':stock', $newStock, PDO::PARAM_STR);
+            
+            $response = $stmt->execute();
+    
+            if($response){
+                return array(
+                    'ok'=>true,
+                    'type'=>'success',
+                    'msg'=>'Producto modificado correctamente'
+                );
+            }else{
+                return array(
+                    'ok'=>false,
+                    'type'=>'error',
+                    'msg'=>'Error modificando producto contacte soporte'
+                );
+    
+            }
+        }else {
+            return array(
+                'ok'=>false,
+                'type'=>'error',
+                'msg'=>'El producto no existe'
+            );
+        }
+    }
+
+    static public function editProductItem(int $id,String $item, $value){
+        $product = Product::findOne("id", $id );
+
+        if(isset($product["id"])){
+
+            $sql = "UPDATE products SET $item = :value WHERE id= :id";           
+            $stmt = Connection::connect()->prepare($sql);
+            $stmt -> bindParam(':id', $id, PDO::PARAM_STR);
+            $stmt -> bindParam(':value', $value, PDO::PARAM_STR);
+            $response = $stmt->execute();
+    
+            if($response){
+                return array(
+                    'ok'=>true,
+                    'type'=>'success',
+                    'msg'=>'Producto modificado correctamente'
+                );
+            }else{
+                return array(
+                    'ok'=>false,
+                    'type'=>'error',
+                    'msg'=>'Error modificando producto contacte soporte'
+                );
+    
+            }
+        }else {
+            return array(
+                'ok'=>false,
+                'type'=>'error',
+                'msg'=>'El producto no existe'
+            );
+        }
+
+
+    }
+
+
+
 }
