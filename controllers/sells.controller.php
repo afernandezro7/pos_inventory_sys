@@ -128,8 +128,8 @@ class SellsController{
 								//REduce Inventory, add buy to client and add sell record to product
 								Product::reduceInventary( intval($key), $val );
 								Product::editProductItem( intval($key), 'sells',$val);
+								Client::addbuytoClient( $client_id, $val);
 							}
-							Client::addbuytoClient( $client_id, 1);
 						}
 
 
