@@ -210,12 +210,16 @@ class Client{
         }
     }    
 
-    static public function addbuytoClient( int $id , int $value){
+    static public function editUnitsBought( int $id , int $value, String $type="increse"){
         $client = Client::findOne("id", $id );
 
         if(isset($client["id"])){
+            if($type=="increse"){              
+                $purchases = intval($client["purchases"]) + $value;                
+            }else {
+                $purchases = intval($client["purchases"]) - $value;
+            }
 
-            $purchases = intval($client["purchases"]) + $value;
             
             $sql = "UPDATE clients SET purchases = :purchases, last_purchase = CURRENT_TIMESTAMP() WHERE id= :id";    
             $stmt = Connection::connect()->prepare($sql);
