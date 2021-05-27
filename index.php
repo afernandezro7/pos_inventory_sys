@@ -1,5 +1,6 @@
 <?php
 
+require_once "config/parameters.php";
 require_once "models/connection.php";
 require_once "models/category.model.php";
 require_once "models/client.model.php";
