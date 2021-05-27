@@ -74,8 +74,8 @@
                                         <button class="btn btn-danger"><?=$product['stock']?></button>
                                     <?php endif; ?>
                                 </td>                        
-                                <td class="text-right">$ <?=$product['cost']?></td>                        
-                                <td class="text-right">$ <?=$product['sell_price']?></td>                        
+                                <td class="text-right">$ <?=number_format($product['cost'],2)?></td>                        
+                                <td class="text-right">$ <?=number_format($product['sell_price'],2)?></td>                        
                                 <td><?=Helpers::LongTimeFilter($product['createdAt'])?></td>                        
                                 <td>
                                     <div class="btn-group">
