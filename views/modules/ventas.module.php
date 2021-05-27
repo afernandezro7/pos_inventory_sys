@@ -59,7 +59,7 @@
                                         ><i class="fa fa-print"></i></button>
                                         <button 
                                             class="btn btn-danger btn_delete_sell" 
-                                            idSell="1"
+                                            idSell="<?=$sell['id']?>"
                                         ><i class="fa fa-trash"></i></button>
                                     </div>
                                 </td>
@@ -73,4 +73,9 @@
     </section>
 
 </div>
-
+<!-- =============================================
+=                  DELETE SELL                   =
+============================================= -->
+<?php
+    SellsController::ctrDeleteSell();
+?>

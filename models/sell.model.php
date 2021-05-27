@@ -114,6 +114,43 @@ class Sell{
         }
     }
 
+    static public function deleteSellsById(int $idSell){
+
+        $sql = "DELETE FROM sells WHERE id = :id"; 
+        $stmt = Connection::connect()->prepare($sql);
+        $stmt -> bindParam(':id', $idSell, PDO::PARAM_STR);
+        $response = $stmt->execute();   
+        
+        if($response){
+
+            return array(
+                'ok'=>true,
+                'type'=>'success',
+                'msg'=>'venta eliminada correctamente'
+            );
+        }else{
+            return array(
+                'ok'=>false,
+                'type'=>'error',
+                'msg'=>'Error eliminando venta, contacte soporte'
+            );
+
+        }
+    }
+
+    static public function findAllSellItems(int $idSell){
+
+        $sql = "SELECT * FROM sells_products WHERE sell_id = :sell_id";
+        $stmt = Connection::connect()->prepare($sql);
+        $stmt -> bindParam(':sell_id', $idSell, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+
+    }
+
+
+
 
 
     

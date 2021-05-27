@@ -522,6 +522,27 @@ function assignName(){
 
 }
 
+/*=============================================
+=               DELETE SELL                =
+=============================================*/
+$(document).on('click',".btn_delete_sell",function(){
+    var btn = $(this)
+    var idSell = $(this).attr("idSell");
 
+    swal({
+        type: 'warning',
+        title: '¿Está seguro de borrar la venta?',
+        text: "¡Si no lo está puede cancelar la acción",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'Cancelar',
+        comfirmButtonText: 'Si, borrar producto!',
+    }).then((res)=>{
+        if(res.value){
+            window.location = 'index.php?ruta=ventas&idTodelete='+idSell;
+        }
+    });
+})
 
 

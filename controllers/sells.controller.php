@@ -177,5 +177,85 @@ class SellsController{
 		}
 	}
 
+	static public function ctrDeleteSell(){
+		if(isset($_GET['idTodelete'])){
+			$idSell = intval($_GET['idTodelete']);
 
+			//verify permission
+			$permission = Helpers::getPermission($_SESSION['user']['role'],["Administrador", "Gestor"]);
+			if($permission == false){
+				echo "<script>
+					swal({
+						type: 'error',
+						title: 'No está autorizado a eliminar productos',
+						showConfirmButton: true,
+						confirmButtonText: 'cerrar',
+						closeOnConfirm: false
+			 		}).then((res)=>{
+						if(res.value){
+							window.location = 'ventas';
+						}
+					});
+				</script>";
+
+				return false;
+				//Redirect to Dashboard page
+				echo "<script>window.location='ventas'</script>";
+
+			}
+
+			$sellDb = Sell:: findOne( "id", $idSell );
+			
+			if(is_array($sellDb)){
+				$sellItems = Sell::findAllSellItems($idSell);
+				$client_id = intval($sellDb['client_id']);
+				
+				foreach ($sellItems as $sellItem) { 
+					//Increse Inventory, reduce sells of product, reduce bought of client
+					$prod_id = intval($sellItem['product_id']);
+					$prod_units = intval($sellItem['units']);
+					
+
+					Product::alterInventory( $prod_id, $prod_units, "increse" );
+					Client::editUnitsBought( $client_id, $prod_units, "reduce");
+					// var_dump($prod_id);
+					// var_dump($prod_units);
+				}
+
+				
+				// die();
+				$resp = Sell::deleteSellsById($idSell);
+
+				echo "<script>
+				swal({
+					type: '".$resp['type']."',
+					title: '".$resp['msg']."',
+					showConfirmButton: true,
+					confirmButtonText: 'cerrar',
+					closeOnConfirm: false
+				 }).then((res)=>{
+					if(res.value){
+						window.location = 'ventas';
+					}
+				});
+				</script>";
+
+			} else {
+				echo "<script>
+				swal({
+					type: 'error',
+					title: 'No se encontró la venta',
+					showConfirmButton: true,
+					confirmButtonText: 'cerrar',
+					closeOnConfirm: false
+				 }).then((res)=>{
+					if(res.value){
+						window.location = 'ventas';
+					}
+				});
+				</script>";
+			}
+			
+		}
+	}
 }
