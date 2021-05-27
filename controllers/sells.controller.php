@@ -126,9 +126,8 @@ class SellsController{
 							$location = "ventas";
 							foreach ($produductInventory as $key => $val) { 
 								//REduce Inventory, add buy to client and add sell record to product
-								Product::reduceInventary( intval($key), $val );
-								Product::editProductItem( intval($key), 'sells',$val);
-								Client::addbuytoClient( $client_id, $val);
+								Product::alterInventory( intval($key), $val, 'reduce' );
+								Client::editUnitsBought( $client_id, $val, 'increse');
 							}
 						}
 
