@@ -49,18 +49,24 @@
                                 <td><?=$sell['client']?></td>
                                 <td><?=$sell['vendor']?></td>
                                 <td><?=$sell['payment_method']?></td>
-                                <td>$ <?=$sell['net_price']?></td>
-                                <td>$ <?=$sell['total_price']?></td>
+                                <td>$ <?=number_format($sell['net_price'],2)?></td>
+                                <td>$ <?=number_format($sell['total_price'],2)?></td>
                                 <td>$ <?=$sell['createdAt']?></td>                     
                                 <td>
                                     <div class="btn-group">
                                         <button 
                                             class="btn btn-primary btnPrint"                                
                                         ><i class="fa fa-print"></i></button>
-                                        <button 
-                                            class="btn btn-danger btn_delete_sell" 
-                                            idSell="<?=$sell['id']?>"
-                                        ><i class="fa fa-trash"></i></button>
+                                        <?php if (Helpers::getPermission($_SESSION['user']['role'],["Administrador", "Gestor"])) : ?>
+                                            <a 
+                                                href="index.php?ruta=editar-venta&idsellToedit=<?=$sell['id']?>"
+                                                class="btn btn-warning btn_edit_sell" 
+                                            ><i class="fa fa-pencil"></i></a>
+                                            <button 
+                                                class="btn btn-danger btn_delete_sell" 
+                                                idSell="<?=$sell['id']?>"
+                                            ><i class="fa fa-trash"></i></button>
+                                        <?php endif; ?>
                                     </div>
                                 </td>
                             </tr>
