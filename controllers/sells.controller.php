@@ -258,4 +258,23 @@ class SellsController{
 			
 		}
 	}
+
+	static public function getSellInfo($idSell){
+		$idSell = intval($idSell);
+
+		$sell = Sell::findOneAdvace('id', $idSell);
+		$items = array('items' => Sell::findAllSellItems($idSell));
+		
+		if(is_array($sell) && is_array($items)){
+			$data = array_merge($sell, $items);
+
+			return $data;
+		}
+
+		return false;
+
+		
+		
+	}
+
 }

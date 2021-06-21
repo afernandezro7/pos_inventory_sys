@@ -140,7 +140,10 @@ class Sell{
 
     static public function findAllSellItems(int $idSell){
 
-        $sql = "SELECT * FROM sells_products WHERE sell_id = :sell_id";
+        $sql = "SELECT sp.*, p.* 
+                FROM sells_products sp
+                INNER JOIN products p ON sp.product_id= p.id
+                WHERE sp.sell_id = :sell_id";
         $stmt = Connection::connect()->prepare($sql);
         $stmt -> bindParam(':sell_id', $idSell, PDO::PARAM_STR);
         $stmt->execute();
@@ -148,6 +151,22 @@ class Sell{
         return $stmt->fetchAll();
 
     }
+
+    static public function findOneAdvace(String $item, $value){
+        "SELECT * FROM sells  WHERE $item = :value";
+
+        $sql = "SELECT s.*, u.name AS 'vendor',c.name AS 'client'
+                FROM sells s 
+                INNER JOIN clients c ON s.client_id= c.id 
+                INNER JOIN users u ON s.vendor_id= u.id 
+                WHERE s.$item = :value";
+        $stmt = Connection::connect()->prepare($sql);
+        $stmt -> bindParam(':value', $value, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->fetch();
+    }
+
 
 
 

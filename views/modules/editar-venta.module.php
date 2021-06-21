@@ -35,7 +35,20 @@
         <div class="row">
             <?php
                 if(isset($_GET['idsellToedit']) && !empty($_GET['idsellToedit'])){
-                    SellsController::getSellInfo($_GET['idsellToedit']);
+                    $sell = SellsController::getSellInfo($_GET['idsellToedit']);
+
+                    var_dump($sell);
+                    
+                    if(!is_array($sell)){
+                        echo "<script>
+					            window.location = 'ventas';
+						      </script>";
+                    }
+                }
+                else {
+                    echo "<script>
+					            window.location = 'ventas';
+						</script>";
                 }
             ?>
 
@@ -52,35 +65,33 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                        <input class="form-control" type="text" value="<?=$_SESSION['user']['name']?>" name="vendor" readonly required>
+                                        <select class="form-control" name="vendor" readonly required>
+                                            <option value="<?=$sell['vendor_id']?>"><?=$sell['vendor']?></option>
+                                        </select>
+                                        
                                     </div>
                                 </div>
 
                                 <!-- sell_code input      -->
                                 <div class="form-group">
                                     <?php 
-                                        $sell_code= SellsController::getSellcode()
+                                        $sell_code= Helpers::sellCodeViewGenerator($sell['sell_code']);
                                     ?>
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                        <input class="form-control" type="text" value="<?=$sell_code?>" name="newSellCode" readonly required>
+                                        <input class="form-control" type="text" value="<?=$sell_code?>" name="editSellCode" readonly required>
                                     </div>
                                 </div>
 
                                 <!-- client input      -->
                                 <div class="form-group">
-                                    <?php 
-                                        $clients = ClientsController::ctrListClients()
-                                    ?>
+                                    
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-users"></i></span>
-                                        <select class="form-control" id="selectClient" name="selectClientSell" placeholder="Agregar Cliente" required>
-                                            <option value="" disabled selected>Seleccionar Cliente</option>
-                                            <?php foreach ($clients as $key => $client) : ?>
-                                                <option value="<?=$client['id']?>"><?=$client['name']?></option>
-                                            <?php endforeach; ?>
+                                        <select class="form-control" id="selectClient" name="selectClientSell" placeholder="Agregar Cliente" readonly required>
+                                            <option value="<?=$sell['client_id']?>"><?=$sell['client']?></option>
                                         </select>
-                                        <span class="input-group-addon" style="padding:3px">
+                                        <!-- <span class="input-group-addon" style="padding:3px">
                                             <button 
                                                 class="btn btn-default btn-xs" 
                                                 type="button" 
@@ -88,17 +99,85 @@
                                                 data-target="#modalAddClient"
                                                 data-dismiss="modal"
                                             >Agregar Cliente</button>
-                                        </span>
+                                        </span> -->
                                     </div>
                                 </div>
 
                                 <!-- add product input  sells.js    -->
+                                
                                 <div class="form-group newProduct" style="padding-bottom:5px">
-                                    <!-- product description -->
-                                    <!-- product amount -->
-                                    <!-- price -->  
-                                    <input type="hidden" value="0" name="itemAmount" id="itemAmount">                                 
-                                </div>
+                                    <?php foreach ($sell['items'] as $keyprod => $product) : ?>
+                                        <div class="row" style="padding:5px 5px">
+                                            <!-- product description -->
+                                            <div class="col-xs-5" style="padding-right:0px">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon" style="padding:3px">
+                                                        <button 
+                                                            class="btn btn-danger btn-xs quit_product_sell" 
+                                                            idProduct="<?=$product['product_id']?>" 
+                                                            type="button"
+                                                        >
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                    </span>
+                                                    <select 
+                                                        class="form-control product_desc" 
+                                                        idProduct="<?=$product['product_id']?>" 
+                                                        name="addProductSell<?=$keyprod+1?>" 
+                                                        readonly  
+                                                        required
+                                                    >
+                                                        <option value="<?=$product['product_id']?>"><?=$product['description']?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                    
+                                            <!-- product amount -->
+                                            <div class="col-xs-3 productamount">
+                                                <input  
+                                                    class="form-control product_amount"
+                                                    type="number"   
+                                                    name="newAmountProduct<?=$keyprod+1?>"
+                                                    min="1" 
+                                                    value="<?=$product['units']?>" 
+                                                    max="<?=intval($product['stock']) + intval($product['units'])?>"
+                                                    stock="<?=intval($product['stock']) + intval($product['units'])?>?>"
+                                                    required
+                                                >
+                                            </div>
+
+                                            <!-- price -->  
+                                            <input type="hidden" value="0" name="itemAmount" id="itemAmount"> 
+                                            <div class="col-xs-4 productprice" style="padding-left:0px">
+                                                <div class="input-group">
+
+
+                                                    <span class="input-group-addon">
+                                                      <input type="checkbox" class="price_checkbox" checkbox_target="<?=$product['product_id']?>">
+                                                    </span>
+
+                                                    <input 
+                                                        checkbox_id="<?=$product['product_id']?>"
+                                                        class="form-control product_price" 
+                                                        type="number"
+                                                        name="newPriceProduct<?=$keyprod+1?>"
+                                                        min="<?=$product['cost']?>"
+                                                        value="<?=$product['price']?>" 
+                                                        stock="1"
+                                                        total="<?=$product['price']?>"
+                                                        step="any"
+                                                        placeholder="000"  
+                                                        readonly
+                                                        required
+                                                    >
+                                                    <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
+                                                </div>
+                                            </div>                                
+
+                                        </div>
+
+                                        <?php endforeach; ?>
+                                    </div>
 
                                 <!-- add product button  -->
                                 <button type="button" class="btn btn-default hidden-lg add_product_mobile">Agregar Producto</button>                               
@@ -126,7 +205,7 @@
                                                                 step="any"
                                                                 id="newSellTax"  
                                                                 name="newSellTax" 
-                                                                value="0"  
+                                                                value="<?=$sell['taxes']?>"  
                                                                 required
                                                             >
                                                             <span class="input-group-addon"><i class="fa fa-percent"></i></span>
@@ -139,12 +218,13 @@
                                                                 type="text" 
                                                                 class="form-control"
                                                                 id="newTotalSell"  
-                                                                name="newTotalSell" 
+                                                                name="newTotalSell"
+                                                                value="<?=$sell['total_price']?>" 
                                                                 placeholder="0000"
                                                                 readonly  
                                                                 required
                                                             >
-                                                            <input type="hidden" name="newNetTotalSell" id="newNetTotalSell">
+                                                            <input type="hidden" name="newNetTotalSell" value="<?=$sell['net_price']?>"  id="newNetTotalSell">
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -155,31 +235,63 @@
                                 <hr style="margin-top: 5px;">
 
                                 <!-- payment method  -->
+                                <?php
+                                    $payment = Helpers::getPayment($sell['payment_method']);
+                                ?>
                                 <div class="form-group row">
-                                    <div class="col-xs-6" style="padding-right: 5px">
+                                    <div class="col-xs-<?=$payment['method'] == "efectivo" ? "4" : "6"?>" style="padding-right: 5px">
                                         <div class="input-group">
                                             <select class="form-control" id="newPaymentMethod" name="newPaymentMethod" required>
-                                                <option value="" disabled selected>Método de pago</option>
-                                                <option value="efectivo" >Efectivo</option>
-                                                <option value="TC" >Tarjeta Crédito</option>
-                                                <option value="TD" >Tarjeta Débito</option>
+                                                <option value="efectivo" <?=$payment['method'] == "efectivo" ? "selected" :""?>>Efectivo</option>
+                                                <option value="TC" <?=$payment['method'] == "TC" ? "selected" :""?>>Tarjeta Crédito</option>
+                                                <option value="TD" <?=$payment['method'] == "TD" ? "selected" :""?>>Tarjeta Débito</option>
                                             </select>
                                             <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
                                         </div>
                                     </div>
-                                    <!-- <div class="col-xs-6" style="padding-left: 0px">
-                                        <div class="input-group">
-                                            <input 
-                                                type="text"
-                                                class="form-control"
-                                                id="newTransactionCode"
-                                                name="newTransactionCode"
-                                                placeholder="Código Transacción"
-                                                
-                                            >
-                                            <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                    <?php if ($payment['method'] != "efectivo"):?>                                   
+                                        <div class="col-xs-6 newTransactionCode" style="padding-left: 0px">
+                                            <div class="input-group">
+                                                <input 
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="newTransactionCode"
+                                                    name="newTransactionCode"
+                                                    placeholder="Código Transacción"
+                                                    value="<?=$payment['code']?>"
+                                                >
+                                                <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                                            </div>
                                         </div>
-                                    </div> -->
+                                    <?php else:?>
+                                        <div class="col-xs-4 deliveredcash" style="padding-left: 0px">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
+                                                <input 
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="delivered_cash"
+                                                    step="any"
+                                                    name="delivered_cash"
+                                                    placeholder="Entregado"
+
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-4 changecash" style="padding-left: 0px">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="ion ion-social-usd"></i></span>
+                                                <input 
+                                                    type="text"
+                                                    class="form-control"
+                                                    id="change_cash"
+                                                    name="change_cash"
+                                                    placeholder="Devolver"
+
+                                                >
+                                            </div>
+                                        </div>
+                                    <?php endif;?>
 
                                 </div>
                                 

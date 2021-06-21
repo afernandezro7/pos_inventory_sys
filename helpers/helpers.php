@@ -140,4 +140,28 @@ class Helpers
     static public function sellCodeDecoer(string $code){
         return intval(explode("-",$code)[1]);
     }
+
+    static public function percentCalculator(float $total, float $net){
+        $result = ($total - $net) * 100 /$net;
+        return round($result, 2 );
+        
+    }
+    static public function getPayment(String $payment){
+        $result = array(
+            'method' => "efectivo"
+        );
+
+        if ($payment != $result['method']){
+            $split = explode("-",$payment);
+            $result = array(
+                'method' => $split[0],
+                'code'=>$split[1]
+            );
+        }
+
+        return $result;
+        
+    }
+
+
 }
